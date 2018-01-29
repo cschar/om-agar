@@ -1,6 +1,8 @@
 defmodule Om.Application do
   use Application
 
+  alias Om.Chatserver
+
   # See https://hexdocs.pm/elixir/Application.html
   # for more information on OTP Applications
   def start(_type, _args) do
@@ -15,6 +17,10 @@ defmodule Om.Application do
       # Start your own worker by calling: Om.Worker.start_link(arg1, arg2, arg3)
       # worker(Om.Worker, [arg1, arg2, arg3]),
     ]
+
+    ### trying to use genserver...
+    Chatserver.start_link
+    Chatserver.add_message("foo")
 
     # See https://hexdocs.pm/elixir/Supervisor.html
     # for other strategies and supported options

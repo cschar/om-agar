@@ -26,6 +26,8 @@
       <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
 
       <main role="main">
+        <p> foo total:  <%= @conn.assigns[:foo_total] %> </p>
+
         <%= render @view_module, @view_template, assigns %>
       </main>
 
