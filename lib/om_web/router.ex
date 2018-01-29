@@ -11,6 +11,9 @@ defmodule OmWeb.Router do
 
   pipeline :api do
     plug :accepts, ["json"]
+
+  resources "/modos", ModoController, except: [:new, :edit]
+  resources "/todos", TodoController, except: [:new, :edit]
   end
 
   scope "/", OmWeb do
