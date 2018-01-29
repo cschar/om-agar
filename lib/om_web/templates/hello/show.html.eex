@@ -1,0 +1,5 @@
+<div class="jumbotron">
+  <h2>Hello World, from <%= @messenger %>!</h2>
+</div>
+
+This is the message: <%= message() %>
