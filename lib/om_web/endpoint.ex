@@ -2,6 +2,7 @@ defmodule OmWeb.Endpoint do
   use Phoenix.Endpoint, otp_app: :om
 
   socket "/socket", OmWeb.UserSocket
+  socket "/socket_agar", OmWeb.UserSocket
 
   # Serve at "/" the static files from "priv/static" directory.
   #

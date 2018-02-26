@@ -13,3 +13,8 @@ Repo.all(User)
 import Ecto.Query
 Repo.all(from u in User, select: u.email)
 
+
+## asset pipeline 
+
+cd assets
+node_modules/brunch/bin/brunch build

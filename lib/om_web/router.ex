@@ -19,7 +19,8 @@ defmodule OmWeb.Router do
   scope "/", OmWeb do
     pipe_through :browser # Use the default browser stack
 
-    get "/", PageController, :index
+    get "/d", PageController, :index
+    get "/", PageController, :chat
     get "/hello", HelloController, :index
     get "/hello/:messenger", HelloController, :show
   end

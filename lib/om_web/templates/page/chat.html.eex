@@ -1,0 +1,18 @@
+<div id="messages"></div>
+<input id="chat-input" type="text"></input>
+
+
+<div class="foo">
+-------
+</div>
+
+<div id="agar-score">
+</div>
+<div id="input-log"></div>
+<input id="agar-input" type="text"></input>
+
+<div>
+up - down - right - left
+</div>
+<div id="sketchContainer" style="background-color:grey; margin-top:20px; padding:2px">
+</div>

@@ -7,17 +7,22 @@ exports.config = {
       // To use a separate vendor.js bundle, specify two files path
       // http://brunch.io/docs/config#-files-
       // joinTo: {
-      //   "js/app.js": /^js/,
-      //   "js/vendor.js": /^(?!js)/
+      //   "js/app.js": /^js/, // all code from 'js/',
+      //   "js/vendor.js": /^(?!js)/ // all BUT js/ code - 'vendor/', 'node_modules/', etc
       // }
       //
       // To change the order of concatenation of files, explicitly mention here
-      // order: {
-      //   before: [
-      //     "vendor/js/jquery-2.1.1.js",
-      //     "vendor/js/bootstrap.min.js"
-      //   ]
-      // }
+      ,
+      order: {
+        before: [
+      //     // "vendor/js/jquery-2.1.1.js",
+      //     // "vendor/js/bootstrap.min.js"
+          "vendor/p5.js",          
+          "vendor/p5.dom.js",
+          "js/app.js"
+         
+        ]
+      }
     },
     stylesheets: {
       joinTo: "css/app.css"

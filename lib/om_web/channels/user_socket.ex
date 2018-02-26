@@ -2,7 +2,8 @@ defmodule OmWeb.UserSocket do
   use Phoenix.Socket
 
   ## Channels
-  # channel "room:*", OmWeb.RoomChannel
+   channel "room:*", OmWeb.RoomChannel
+   channel "agar:*", OmWeb.AgarChannel
 
   ## Transports
   transport :websocket, Phoenix.Transports.WebSocket
@@ -30,7 +31,7 @@ defmodule OmWeb.UserSocket do
   # Would allow you to broadcast a "disconnect" event and terminate
   # all active sockets and channels for a given user:
   #
-  #     OmWeb.Endpoint.broadcast("user_socket:#{user.id}", "disconnect", %{})
+  #     SimpleChatWeb.Endpoint.broadcast("user_socket:#{user.id}", "disconnect", %{})
   #
   # Returning `nil` makes this socket anonymous.
   def id(_socket), do: nil

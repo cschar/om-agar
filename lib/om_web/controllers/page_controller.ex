@@ -12,4 +12,8 @@ defmodule OmWeb.PageController do
     render conn, "index.html", list: Chatserver.get_messages
   end
 
+  def chat(conn, _params) do
+    render conn, "chat.html"
+  end
+
 end

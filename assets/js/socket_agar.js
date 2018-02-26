@@ -5,7 +5,7 @@
 // and connect at the socket path in "lib/web/endpoint.ex":
 import {Socket} from "phoenix"
 
-let socket = new Socket("/socket", {params: {token: window.userToken}})
+let socket_agar = new Socket("/socket_agar", {params: {token: window.userToken}})
 
 // When you connect, you'll often need to authenticate the client.
 // For example, imagine you have an authentication plug, `MyAuth`,
@@ -51,7 +51,7 @@ let socket = new Socket("/socket", {params: {token: window.userToken}})
 // Finally, pass the token on connect as below. Or remove it
 // from connect if you don't care about authentication.
 
-socket.connect()
+socket_agar.connect()
 
 // Now that you are connected, you can join channels with a topic:
 //let channel = socket.channel("topic:subtopic", {})
@@ -59,12 +59,12 @@ socket.connect()
 //  .receive("ok", resp => { console.log("Joined successfully", resp) })
 //  .receive("error", resp => { console.log("Unable to join", resp) })
 
-let channel = socket.channel("room:lobby", {})
-let chatInput         = document.querySelector("#chat-input")
-let messagesContainer = document.querySelector("#messages")
+let channel = socket_agar.channel("agar:lobby", {})
+let chatInput         = document.querySelector("#agar-input")
+let messagesContainer = document.querySelector("#input-log")
 
 chatInput.addEventListener("keypress", event => {
-  console.log("pressed enter")
+  console.log("pressed enter22")
   if(event.keyCode === 13){
     channel.push("new_msg", {body: chatInput.value})
     chatInput.value = ""
@@ -83,5 +83,4 @@ channel.join()
   .receive("error", resp => { console.log("Unable to join", resp) })
 
 
-
-export default socket
+export default socket_agar
