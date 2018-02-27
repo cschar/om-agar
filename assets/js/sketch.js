@@ -1,6 +1,14 @@
 
 
-// import socket_agar from "./socket_agar"
+var blob;
+
+var blobs = [];
+var zoom = 1;
+
+var o_blobs = [];
+var blob_npc = null;
+
+
 import {Socket} from "phoenix"
 
 let socket_agar = new Socket("/socket_agar", {params: {token: window.userToken}})
@@ -12,15 +20,17 @@ channel.join()
   .receive("error", resp => { console.log("Unable to join", resp) })
 
   
-// channel.join()
-//   .receive("ok", resp => { console.log("Joined successfully23", resp) })
-//   .receive("error", resp => { console.log("Unable to join23", resp) })
+channel.on("heartbeat", payload => {
+    console.log("got heartbeat channel from server")
+    console.log(payload);
+    if(blob_npc){
+      console.log(payload.greenie);
+      blob_npc.pos.x = payload.greenie.x;
+      blob_npc.pos.y = payload.greenie.y;
+    }
+  }
+)
 
-
-var blob;
-
-var blobs = [];
-var zoom = 1;
 
 
 
@@ -29,11 +39,15 @@ var s = function(p) {
 
   p.mouseReleased = function (){
     console.log("released")
-    channel.push("new_msg", {body: "pressed"})
+    //channel.push("new_msg", {body: "pressed"})
+    channel.push("new_pos",
+        {body: {pos_x: blob.pos.x,
+                pos_y: blob.pos.y}})
   }
 
   function Blob3(x, y, r) {
     console.log("building blob")
+    this.color = 255;
     this.pos = new p5.Vector(x, y);
     this.r = r;
     this.vel = new p5.Vector(0,0);
@@ -62,7 +76,7 @@ var s = function(p) {
     }
   
     this.show = function() {
-      p.fill(255);
+      p.fill(this.color, this.color, 255);
       p.ellipse(this.pos.x, this.pos.y, this.r*2, this.r*2);
     }
   }
@@ -71,6 +85,9 @@ p.setup = function() {
   var c = p.createCanvas(600, 600);
   c.parent("sketchContainer")
   blob = new Blob3(0, 0, 64);
+  blob_npc = new Blob3(30, 0, 48);
+  blob_npc.color = 180
+
   for (var i = 0; i < 200; i++) {
     var x = p.random(-p.width, p.width);
     var y = p.random(-p.height,p.height);
@@ -98,6 +115,7 @@ p.draw = function() {
   blob.show();
   blob.update();
 
+  blob_npc.show();
 }
 }
 

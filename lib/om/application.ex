@@ -2,6 +2,7 @@ defmodule Om.Application do
   use Application
 
   alias Om.Chatserver
+  alias Om.Blobserverpos
 
   # See https://hexdocs.pm/elixir/Application.html
   # for more information on OTP Applications
@@ -17,6 +18,9 @@ defmodule Om.Application do
       # supervisor(Om.Blobserver, ["foo"])
       # Start your own worker by calling: Om.Worker.start_link(arg1, arg2, arg3)
       # worker(Om.Worker, [arg1, arg2, arg3]),
+
+            worker(Om.Periodically, [])
+
     ]
 
     ### trying to use genserver...
@@ -24,6 +28,12 @@ defmodule Om.Application do
     Chatserver.add_message("foo")
     Om.Blobserver.start_link
     Om.Blobserver.add_message("user0")
+
+    Blobserverpos.start_link()
+    update = %{ player_id: :greenie,
+                  player_pos: %{ x: 120, y: 120}}
+    Blobserverpos.update_message(update)
+
 
     # Blobserver.start_link
 

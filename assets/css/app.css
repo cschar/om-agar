@@ -1,1 +1,10 @@
 /* This file is for your main application css. */
+
+
+.column1 {
+  background-color: wheat;
+}
+
+.column2 {
+  background-color: lightgoldenrodyellow;
+}
