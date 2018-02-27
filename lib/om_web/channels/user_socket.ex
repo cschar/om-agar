@@ -20,9 +20,25 @@ defmodule OmWeb.UserSocket do
   #
   # See `Phoenix.Token` documentation for examples in
   # performing token verification on connect.
-  def connect(_params, socket) do
-    {:ok, socket}
+#  def connect(_params, socket) do
+#    {:ok, socket}
+#  end
+  @max_age 2 * 7 * 24 * 60 * 60
+
+  def connect(%{"token" => token}, socket) do
+      case Phoenix.Token.verify(socket, "user socket", token, max_age: @max_age) do
+        {:ok, user_id} ->
+          user = Om.Repo.get!(Om.User, user_id)
+          {:ok, assign(socket, :current_user, user)}
+        {:error, _reason} ->
+          :error
+      end
   end
+
+
+  def connect(_params, _socket), do: :error
+
+  def id(socket), do: "users_socket:#{socket.assigns.current_user.id}"
 
   # Socket id's are topics that allow you to identify all sockets for a given user:
   #

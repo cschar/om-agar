@@ -36,7 +36,7 @@ defmodule Om.Periodically do
     new_y = Enum.random(-10..10)
 
 #    IO.puts(inspect(greenie))
-    IO.puts(inspect(Blobserverpos.get_messages()))
+#    IO.puts(inspect(Blobserverpos.get_messages()))
     new_blob_info = %{ player_id: :greenie,
 
       player_pos: %{

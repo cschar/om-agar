@@ -16,7 +16,8 @@
       <header class="header">
         <nav role="navigation">
           <ul class="nav nav-pills pull-right">
-            <li><a href="http://www.phoenixframework.org/docs">Get Started</a></li>
+            <li><a href="/">Home </a></li>
+            <li><a href="/chat">chat </a></li>
           </ul>
         </nav>
         <span class="logo"></span>
@@ -27,11 +28,16 @@
 
       <main role="main">
         <p> foo total:  <%= @conn.assigns[:foo_total] %> </p>
+          <p> current_user:  <%= inspect(@conn.assigns[:current_user].name) %> </p>
+        <p> auth token:  <%= inspect(@conn.assigns[:user_token]) %> </p>
+
 
         <%= render @view_module, @view_template, assigns %>
       </main>
 
     </div> <!-- /container -->
+
+    <script>window.userToken = "<%= assigns[:user_token] %>"</script>
     <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
   </body>
 </html>

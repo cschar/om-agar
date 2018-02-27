@@ -7,7 +7,9 @@ defmodule OmWeb.Router do
     plug :fetch_flash
     plug :protect_from_forgery
     plug :put_secure_browser_headers
+    plug Om.Auth, repo: Om.Repo
   end
+
 
   pipeline :api do
     plug :accepts, ["json"]
@@ -19,8 +21,11 @@ defmodule OmWeb.Router do
   scope "/", OmWeb do
     pipe_through :browser # Use the default browser stack
 
-    get "/d", PageController, :index
-    get "/", PageController, :chat
+    get "/", PageController, :index
+    post "/login", PageController, :create
+    get "/logout", PageController, :logout
+
+    get "/chat", PageController, :chat
     get "/hello", HelloController, :index
     get "/hello/:messenger", HelloController, :show
   end

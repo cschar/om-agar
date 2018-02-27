@@ -1,6 +1,17 @@
+
 <div class="jumbotron">
-  <h2><%= gettext "Welcome to %{name}!", name: "Phoenix" %></h2>
-  <p class="lead">A productive web framework that<br />does not compromise speed and maintainability.</p>
+  <h2>Welcome to Aga </h2>
+
+
+  <%= form_for @conn, page_path(@conn, :create), [as: :page], fn f -> %>
+
+  <div class="form-group">
+    <%= text_input f, :username, placeholder: "Username", class: "form-control" %>
+  </div>
+
+  <%= submit "Continue", class: "btn btn-primary" %>
+  <% end %>
+
 </div>
 
 <p> foo emails:  <%= @conn.assigns[:foo_email] %> </p>
@@ -8,6 +19,4 @@
 <h3> chatserver genserver items: <%= @conn.assigns[:foo_chatserver] %> </h3>
 
 
-<%= for item <- @list do %>
-  <p><%= item %></p>
-<% end %>
+

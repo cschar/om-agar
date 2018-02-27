@@ -17,7 +17,8 @@ defmodule Om.User do
   def changeset(%User{} = user, attrs) do
     user
     |> cast(attrs, [:name, :email, :bio, :number_of_pets])
-    |> validate_required([:name, :email, :bio])
+    |> validate_required([:name])
+#    |> validate_required([:name, :email, :bio])
 #    |> validate_required([:name, :email, :bio, :number_of_pets])
   end
 end
