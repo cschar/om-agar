@@ -34,7 +34,7 @@ defmodule OmWeb.PageController do
     end
   end
 
-  def logout(conn, _, _user) do
+  def logout(conn, _params) do
   	conn
   	|> Om.Auth.logout()
 	  |> redirect(to: page_path(conn, :index))

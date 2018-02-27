@@ -16,13 +16,14 @@ defmodule OmWeb.AgarChannel do
 
 
   def join("agar:lobby", _message, socket) do
-    new_id = string_of_length(5)    
+    new_id = string_of_length(5)
 
-    IO.puts "New blob joined " <> new_id
-#    Om.Blobserver.add_message(new_id)
-    IO.puts "Current blobs in game: " <> Enum.join(Blobserver.get_messages, " ")
 
-    new_blob_info = %{player_id: new_id,
+#    player_id = "user:#{socket.assigns.current_user.id} -- #{socket.assigns.current_user.name}"
+
+    ## set in user_socket.ex Connect
+    player_id = "#{socket.assigns.current_user.id}"
+    new_blob_info = %{player_id: player_id,
                      player_pos: %{x: 200, y: 200}}
 
 #    Blobserverpos.update_message(new_blob_info)
@@ -53,7 +54,14 @@ defmodule OmWeb.AgarChannel do
 
     IO.puts("new pos" <> inspect(body))
 #    broadcast! socket, "heartbeat", body
-    broadcast! socket, "new_pos", body
+#    broadcast! socket, "new_pos", body
+
+    socket.assigns.current_user.id
+
+    update = %{ player_id: socket.assigns.current_user.id,
+                  player_pos: %{ x: body["pos_x"], y: body["pos_y"]}}
+    Blobserverpos.update_message(update)
+
     {:noreply, socket}
   end
 

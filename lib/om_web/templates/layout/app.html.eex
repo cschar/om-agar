@@ -18,6 +18,9 @@
           <ul class="nav nav-pills pull-right">
             <li><a href="/">Home </a></li>
             <li><a href="/chat">chat </a></li>
+            <%= if @conn.assigns[:current_user] do %>
+            <li><h3><a href="/logout">logout </a></h3></li>
+            <% end %>
           </ul>
         </nav>
         <span class="logo"></span>
@@ -28,8 +31,11 @@
 
       <main role="main">
         <p> foo total:  <%= @conn.assigns[:foo_total] %> </p>
+        <%= if @conn.assigns[:current_user] do %>
           <p> current_user:  <%= inspect(@conn.assigns[:current_user].name) %> </p>
-        <p> auth token:  <%= inspect(@conn.assigns[:user_token]) %> </p>
+          <p> auth token:  <%= inspect(@conn.assigns[:user_token]) %> </p>
+        <% end %>
+
 
 
         <%= render @view_module, @view_template, assigns %>

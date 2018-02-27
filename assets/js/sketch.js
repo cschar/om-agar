@@ -8,6 +8,11 @@ var zoom = 1;
 var o_blobs = [];
 var blob_npc = null;
 
+var player_id = null;
+window.player_id = player_id;
+
+var gamedata = null;
+window.gd = gamedata;
 
 import {Socket} from "phoenix"
 
@@ -16,22 +21,30 @@ socket_agar.connect()
 
 let channel = socket_agar.channel("agar:lobby", {})
 channel.join()
-  .receive("ok", resp => { console.log("Joined successfully", resp) })
+  .receive("ok", resp => {
+    console.log("Joined successfully", resp)
+    window.player_id = player_id = resp.player_id;
+
+  })
   .receive("error", resp => { console.log("Unable to join", resp) })
 
   
 channel.on("heartbeat", payload => {
     console.log("got heartbeat channel from server")
     console.log(payload);
+    gamedata = payload;
+    window.gd = payload;
+
     if(blob_npc){
-      console.log(payload.greenie);
       blob_npc.pos.x = payload.greenie.x;
       blob_npc.pos.y = payload.greenie.y;
     }
   }
 )
 
+function updateGame(){
 
+}
 
 
 
@@ -116,6 +129,21 @@ p.draw = function() {
   blob.update();
 
   blob_npc.show();
+
+  //other players
+  if(gamedata){
+    let keys = Object.keys(gamedata);
+    keys = keys.filter( (x) => (x !== "greenie"))
+    keys = keys.filter( (x) => (x !== player_id))
+    //
+    for( let k of keys){
+       p.fill(130, 130, 255);
+      let pos = gamedata[k]
+      let r = 30
+      p.ellipse(pos.x, pos.y, r*2, r*2);
+    }
+  }
+
 }
 }
 
