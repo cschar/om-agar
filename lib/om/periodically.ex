@@ -41,7 +41,9 @@ defmodule Om.Periodically do
 
       player_pos: %{
         x: greenie[:x] + new_x,
-        y: greenie[:y] + new_y
+        y: greenie[:y] + new_y,
+        r: greenie[:r] + Enum.random(-2..2)
+
     }}
 #
     Blobserverpos.update_message(new_blob_info)

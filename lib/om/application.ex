@@ -31,9 +31,24 @@ defmodule Om.Application do
 
     Blobserverpos.start_link()
     update = %{ player_id: :greenie,
-                  player_pos: %{ x: 120, y: 120}}
+                  player_pos: %{ x: 120, y: 120, r: 45}}
     Blobserverpos.update_message(update)
 
+
+
+    num = 1..200
+    Enum.to_list(num)
+    food_spots = Enum.map(num, fn x ->
+                    %{ food_id: x,
+                       x: Enum.random(-400..400),
+                       y: Enum.random(-400..400)
+                    }
+                  end)
+
+
+    update = %{ player_id: :food_master,
+                player_pos: %{ spots: food_spots}}
+    Blobserverpos.update_message(update)
 
     # Blobserver.start_link
 

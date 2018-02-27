@@ -3,10 +3,13 @@
 var blob;
 
 var blobs = [];
+window.blobs = blobs;
 var zoom = 1;
 
 var o_blobs = [];
 var blob_npc = null;
+var foods = null;
+var spawned_foods = false;
 
 var player_id = null;
 window.player_id = player_id;
@@ -35,9 +38,12 @@ channel.on("heartbeat", payload => {
     gamedata = payload;
     window.gd = payload;
 
+    window.foods = foods = payload.foods;
+
     if(blob_npc){
       blob_npc.pos.x = payload.greenie.x;
       blob_npc.pos.y = payload.greenie.y;
+      blob_npc.r = payload.greenie.r;
     }
   }
 )
@@ -47,6 +53,7 @@ function updateGame(){
 }
 
 
+var blobs_eaten = []
 
 var s = function(p) {
 
@@ -55,11 +62,13 @@ var s = function(p) {
     //channel.push("new_msg", {body: "pressed"})
     channel.push("new_pos",
         {body: {pos_x: blob.pos.x,
-                pos_y: blob.pos.y}})
+                pos_y: blob.pos.y,
+                radius: blob.r}})
   }
 
-  function Blob3(x, y, r) {
+  function Blob3(x, y, r, id=null) {
     console.log("building blob")
+    this.id = id;
     this.color = 255;
     this.pos = new p5.Vector(x, y);
     this.r = r;
@@ -101,11 +110,11 @@ p.setup = function() {
   blob_npc = new Blob3(30, 0, 48);
   blob_npc.color = 180
 
-  for (var i = 0; i < 200; i++) {
-    var x = p.random(-p.width, p.width);
-    var y = p.random(-p.height,p.height);
-    blobs[i] = new Blob3(x, y, 16);
-  }
+  //for (var i = 0; i < 200; i++) {
+  //  var x = p.random(-p.width, p.width);
+  //  var y = p.random(-p.height,p.height);
+  //  blobs[i] = new Blob3(x, y, 16);
+  //}
 }
 
 p.draw = function() {
@@ -117,12 +126,42 @@ p.draw = function() {
   p.scale(zoom);
   p.translate(-blob.pos.x, -blob.pos.y);
 
-  for (var i = blobs.length-1; i >=0; i--) {
-    blobs[i].show();
-    if (blob.eats(blobs[i])) {
-      blobs.splice(i, 1);
+  let keys = null;
+  if(gamedata) {
+    keys = Object.keys(gamedata);
+  }
+
+  if(spawned_foods){
+    //draw food blobs
+    for (var i = blobs.length-1; i >=0; i--) {
+      blobs[i].show();
+
+      if (blob.eats(blobs[i])) {
+        blobs_eaten.push(blobs[i].id)
+        blobs.splice(i, 1);
+
+      }
+    }
+  }else{
+    if(keys){
+      console.log("making food data")
+      let food_spots = gamedata.food_master.spots;
+
+      food_spots.map( (spot) => {
+          blobs.push(new Blob3(spot.x, spot.y, 16, spot.food_id));
+        })
+      spawned_foods = true;
     }
   }
+
+  if(p.frameCount % 60 == 0){
+    //every second, food notification
+    channel.push("food_update",
+        {body: {eaten: blobs_eaten}})
+    blobs_eaten = []
+
+  }
+
 
 
   blob.show();
@@ -131,16 +170,17 @@ p.draw = function() {
   blob_npc.show();
 
   //other players
-  if(gamedata){
-    let keys = Object.keys(gamedata);
+  if(keys){
+
     keys = keys.filter( (x) => (x !== "greenie"))
+    keys = keys.filter( (x) => (x !== "food_master"))
     keys = keys.filter( (x) => (x !== player_id))
     //
     for( let k of keys){
        p.fill(130, 130, 255);
       let pos = gamedata[k]
-      let r = 30
-      p.ellipse(pos.x, pos.y, r*2, r*2);
+      //let r = 30
+      p.ellipse(pos.x, pos.y, pos.r*2, pos.r*2);
     }
   }
 

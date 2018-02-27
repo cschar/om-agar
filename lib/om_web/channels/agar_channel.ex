@@ -1,8 +1,10 @@
 defmodule OmWeb.AgarChannel do
-  use Phoenix.Channel
+#  use Phoenix.Channel
+  use Phoenix.Channel, log_join: :info, log_handle_in: false
   # alias SimpleChat.ShoppingList
   alias Om.Blobserver
   alias Om.Blobserverpos
+
 
 
   def terminate(_reason, socket) do
@@ -43,9 +45,32 @@ defmodule OmWeb.AgarChannel do
   end
 
   def handle_out("new_msg", payload, socket) do
-
-
     push socket, "new_msg", payload
+    {:noreply, socket}
+  end
+
+  def handle_in("food_update", %{"body" => body}, socket) do
+    # could log the message into an analytics thing
+    IO.puts("food_update input" <> inspect(body))
+
+    if body["eaten"] != %{} do
+      newly_eaten = body["eaten"]
+      food_master = Blobserverpos.get_messages()[:food_master]
+      food_spots = food_master[:spots]
+
+      leftovers = Enum.filter(food_spots,
+        fn(spot) ->  spot[:food_id] not in newly_eaten
+        end)
+
+      IO.puts("leftovers")
+      IO.puts(length(leftovers))
+      
+        update = %{ player_id: :food_master,
+                    player_pos: %{ spots: leftovers}}
+        Blobserverpos.update_message(update)
+    end
+
+#    broadcast! socket, "new_msg", %{body: body}
     {:noreply, socket}
   end
 
@@ -59,7 +84,9 @@ defmodule OmWeb.AgarChannel do
     socket.assigns.current_user.id
 
     update = %{ player_id: socket.assigns.current_user.id,
-                  player_pos: %{ x: body["pos_x"], y: body["pos_y"]}}
+                  player_pos: %{ x: body["pos_x"],
+                                 y: body["pos_y"],
+                                 r: body["radius"]}}
     Blobserverpos.update_message(update)
 
     {:noreply, socket}
