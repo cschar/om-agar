@@ -9,6 +9,11 @@ defmodule OmWeb.PageController do
   plug :foo_email
   plug :foo_chatserver
 
+  ## custom plug set in router, defined in controllers/auth.ex
+  import Om.Auth
+  plug :authenticate_user  when action in [:chat]
+
+
   def index(conn, _params) do
     render conn, "index.html", list: Chatserver.get_messages
   end

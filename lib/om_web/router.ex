@@ -7,6 +7,8 @@ defmodule OmWeb.Router do
     plug :fetch_flash
     plug :protect_from_forgery
     plug :put_secure_browser_headers
+
+    ##custom plugs controllers/auth.ex
     plug Om.Auth, repo: Om.Repo
   end
 

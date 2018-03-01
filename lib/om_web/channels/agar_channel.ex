@@ -8,7 +8,7 @@ defmodule OmWeb.AgarChannel do
 
 
   def terminate(_reason, socket) do
-    IO.puts "terminating"
+    IO.puts "terminating -- overriden"
   end
 
   ### topic:subtopic
@@ -64,7 +64,7 @@ defmodule OmWeb.AgarChannel do
 
       IO.puts("leftovers")
       IO.puts(length(leftovers))
-      
+
         update = %{ player_id: :food_master,
                     player_pos: %{ spots: leftovers}}
         Blobserverpos.update_message(update)
