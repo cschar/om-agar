@@ -11,6 +11,7 @@ var blob_npc = null;
 var foods = null;
 var init_spawned_foods = false;
 
+let pos_log = document.getElementById("position-log")
 var player_id = null;
 window.player_id = player_id;
 
@@ -119,7 +120,7 @@ p.setup = function() {
 
 p.draw = function() {
   p.background(100);
-
+  p.textSize(20);
   p.translate(p.width/2, p.height/2);
   var newzoom = 64 / blob.r;
   zoom = p.lerp(zoom, newzoom, 0.1);
@@ -160,6 +161,9 @@ p.draw = function() {
 
   }
 
+  p.fill(160,255,160)
+  p.text(`blob[${player_id}]: ${blob.r}`, blob.pos.x+blob.r, blob.pos.y)
+
     if(p.frameCount % 60 == 0){
     //send position and food eaten info every 1 sec
     channel.push("food_update",
@@ -179,6 +183,8 @@ p.draw = function() {
         let food_spots = gamedata.food_master.spots;
         //let food_spot_keys = Object.keys(food_spots)
 
+
+        //pos_log.innerHTML = `<h1> ${blob.r} </h1>`;
         blobs = []
         food_spots.map( (spot) => {
           blobs.push(new Blob3(spot.x, spot.y, 16, spot.food_id));
@@ -210,6 +216,7 @@ p.draw = function() {
       let pos = gamedata[k]
       //let r = 30
       p.ellipse(pos.x, pos.y, pos.r*2, pos.r*2);
+      p.text(`blob[${k}]:  = ${pos.r}`, pos.x + pos.r, pos.y)
     }
   }
 

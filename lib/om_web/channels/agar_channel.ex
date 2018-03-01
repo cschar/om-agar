@@ -8,7 +8,10 @@ defmodule OmWeb.AgarChannel do
 
 
   def terminate(_reason, socket) do
-    IO.puts "agar_channel terminating -- overriden"
+    player_id = socket.assigns.current_user.id
+    Blobserverpos.remove_message_id(player_id)
+
+    IO.puts "agar_channel terminating , removed " <> inspect(player_id)
   end
 
   ### topic:subtopic
@@ -50,8 +53,6 @@ defmodule OmWeb.AgarChannel do
   end
 
   def handle_in("food_update", %{"body" => body}, socket) do
-    # could log the message into an analytics thing
-    IO.puts("food_update input" <> inspect(body))
 
     if body["eaten"] != %{} do
       newly_eaten = body["eaten"]
@@ -65,8 +66,6 @@ defmodule OmWeb.AgarChannel do
 #      leftovers = Enum.filter(food_spots,
 #        fn {k,v} -> k not in newly_eaten end)
 
-      IO.puts("leftovers")
-      IO.puts(length(leftovers))
 
         update = %{ player_id: :food_master,
                     player_pos: %{ spots: leftovers}}
@@ -80,7 +79,6 @@ defmodule OmWeb.AgarChannel do
 
   def handle_in("new_pos", %{"body" => body}, socket) do
 
-    IO.puts("new pos" <> inspect(body))
 #    broadcast! socket, "heartbeat", body
 #    broadcast! socket, "new_pos", body
 

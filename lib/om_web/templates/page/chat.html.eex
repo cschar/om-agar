@@ -12,7 +12,7 @@
     <div id="agar-score">  </div>
     <div id="input-log">
       <input id="agar-input" type="text"></input>
-      up - down - right - left
+      Mousepress(hold) to move
     </div>
   </div>
 
