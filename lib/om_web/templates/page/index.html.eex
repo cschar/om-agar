@@ -14,9 +14,9 @@
 
 </div>
 
-<p> foo emails:  <%= @conn.assigns[:foo_email] %> </p>
+<p>  <%= @conn.assigns[:foo_email] %> </p>
 
-<h3> chatserver genserver items: <%= @conn.assigns[:foo_chatserver] %> </h3>
+<h3>  <%= raw @conn.assigns[:foo_chatserver] %> </h3>
 
 
 
