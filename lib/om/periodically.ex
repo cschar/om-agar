@@ -30,8 +30,8 @@ defmodule Om.Periodically do
 #      update = %{ player_id: :greenie,
 #                  player_pos: %{ x: 12, y: 66}}
 
-
-    greenie = Blobserverpos.get_messages()[:greenie]
+    gamedata = Blobserverpos.get_messages()
+    greenie = gamedata[:greenie]
     new_x = Enum.random(-10..10)
     new_y = Enum.random(-10..10)
 
@@ -48,9 +48,33 @@ defmodule Om.Periodically do
 #
     Blobserverpos.update_message(new_blob_info)
 
-#    OmWeb.Endpoint.broadcast()
-#    OmWeb.Endpoint.broadcast("agar", "heartbeat", %{ msg: "bah"})
 
+
+    food_spots = gamedata[:food_master][:spots]
+
+#    IO.puts inspect(length(food_spots))
+
+    if length(food_spots) < 100 do
+
+      # make 10 food each heartbeat
+      ids_in_use = food_spots |> Enum.map( fn k -> k[:food_id] end)
+
+      num = Enum.take_random((1000..200000), 5)
+      num = Enum.filter(num, fn x -> x not in ids_in_use end)
+
+      new_food_spots = Enum.map(num, fn x ->
+                      %{ food_id: x,
+                         x: Enum.random(-1000..1000),
+                         y: Enum.random(-1000..1000)
+                      }
+                    end)
+
+      food_spots = new_food_spots ++ food_spots
+
+      food_update = %{ player_id: :food_master,
+                       player_pos: %{ spots: food_spots}}
+      Blobserverpos.update_message(food_update)
+    end
 
     heartbeat_msg = Blobserverpos.get_messages()
     OmWeb.Endpoint.broadcast("agar:lobby", "heartbeat", heartbeat_msg)

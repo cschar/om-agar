@@ -131,6 +131,11 @@ p.draw = function() {
     keys = Object.keys(gamedata);
   }
 
+
+
+
+
+
   if(init_spawned_foods && keys){
 
     //update food blobs
@@ -155,21 +160,36 @@ p.draw = function() {
 
   }
 
-  if(p.frameCount % 60 == 0){
-    //every second, food notification, update global food state
+    if(p.frameCount % 60 == 0){
+    //send position and food eaten info every 1 sec
     channel.push("food_update",
         {body: {eaten: blobs_eaten}})
+    blobs_eaten = []
+
 
     channel.push("new_pos",
         {body: {pos_x: blob.pos.x,
                 pos_y: blob.pos.y,
                 radius: blob.r}})
 
-    blobs_eaten = []
-    blobs = []
-    init_spawned_foods = false;
+
+      //Resync foods to global state every 2 sec
+      if(p.frameCount % 120 == 0 && gamedata) {
+        //remove foods that have been eaten by otehr players
+        let food_spots = gamedata.food_master.spots;
+        //let food_spot_keys = Object.keys(food_spots)
+
+        blobs = []
+        food_spots.map( (spot) => {
+          blobs.push(new Blob3(spot.x, spot.y, 16, spot.food_id));
+        })
+
+      }
+
 
   }
+
+
 
 
 

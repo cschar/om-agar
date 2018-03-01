@@ -20,9 +20,5 @@ mix hello.greeting
 https://hexdocs.pm/phoenix/heroku.html
 
 ```
-heroku create
-heroku buildpacks:add https://github.com/HashNuke/heroku-buildpack-elixir.git
-heroku buildpacks:add https://github.com/gjaldon/heroku-buildpack-phoenix-static.git
-
-
+heroku run "POOL_SIZE=2 mix ecto.migrate"
 ```
