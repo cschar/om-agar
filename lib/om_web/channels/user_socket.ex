@@ -6,7 +6,11 @@ defmodule OmWeb.UserSocket do
    channel "agar:*", OmWeb.AgarChannel
 
   ## Transports
-  transport :websocket, Phoenix.Transports.WebSocket
+  transport :websocket, Phoenix.Transports.WebSocket,
+   timeout: 45_000
+  # This ensures that any idle connections are closed by Phoenix
+  # before they reach Heroku’s 55-second timeout window.
+
   # transport :longpoll, Phoenix.Transports.LongPoll
 
   # Socket params are passed from the client and can

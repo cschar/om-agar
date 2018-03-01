@@ -164,7 +164,7 @@ p.draw = function() {
         {body: {pos_x: blob.pos.x,
                 pos_y: blob.pos.y,
                 radius: blob.r}})
-    
+
     blobs_eaten = []
     blobs = []
     init_spawned_foods = false;
