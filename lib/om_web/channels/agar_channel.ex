@@ -8,7 +8,7 @@ defmodule OmWeb.AgarChannel do
 
 
   def terminate(_reason, socket) do
-    IO.puts "terminating -- overriden"
+    IO.puts "agar_channel terminating -- overriden"
   end
 
   ### topic:subtopic
@@ -61,6 +61,9 @@ defmodule OmWeb.AgarChannel do
       leftovers = Enum.filter(food_spots,
         fn(spot) ->  spot[:food_id] not in newly_eaten
         end)
+
+#      leftovers = Enum.filter(food_spots,
+#        fn {k,v} -> k not in newly_eaten end)
 
       IO.puts("leftovers")
       IO.puts(length(leftovers))

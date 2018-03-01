@@ -51,6 +51,7 @@ defmodule Om.Periodically do
 #    OmWeb.Endpoint.broadcast()
 #    OmWeb.Endpoint.broadcast("agar", "heartbeat", %{ msg: "bah"})
 
+
     heartbeat_msg = Blobserverpos.get_messages()
     OmWeb.Endpoint.broadcast("agar:lobby", "heartbeat", heartbeat_msg)
 
@@ -60,6 +61,7 @@ defmodule Om.Periodically do
 
   defp schedule_work() do
 #    Process.send_after(self(), :work, 2 * 60 * 60 * 1000) # In 2 hours
-     Process.send_after(self(), :work, 2 * 1000) # 2 second
+#     Process.send_after(self(), :work, 2 * 1000) # 2 second
+      Process.send_after(self(), :work, 1 * 1000) # 2 second
   end
 end

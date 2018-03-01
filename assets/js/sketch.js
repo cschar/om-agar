@@ -9,7 +9,7 @@ var zoom = 1;
 var o_blobs = [];
 var blob_npc = null;
 var foods = null;
-var spawned_foods = false;
+var init_spawned_foods = false;
 
 var player_id = null;
 window.player_id = player_id;
@@ -131,34 +131,43 @@ p.draw = function() {
     keys = Object.keys(gamedata);
   }
 
-  if(spawned_foods){
+  if(init_spawned_foods && keys){
+
+    //update food blobs
+
     //draw food blobs
     for (var i = blobs.length-1; i >=0; i--) {
       blobs[i].show();
-
       if (blob.eats(blobs[i])) {
         blobs_eaten.push(blobs[i].id)
         blobs.splice(i, 1);
 
       }
     }
-  }else{
-    if(keys){
+  }else if(keys){
       console.log("making food data")
       let food_spots = gamedata.food_master.spots;
 
       food_spots.map( (spot) => {
           blobs.push(new Blob3(spot.x, spot.y, 16, spot.food_id));
         })
-      spawned_foods = true;
-    }
+      init_spawned_foods = true;
+
   }
 
   if(p.frameCount % 60 == 0){
-    //every second, food notification
+    //every second, food notification, update global food state
     channel.push("food_update",
         {body: {eaten: blobs_eaten}})
+
+    channel.push("new_pos",
+        {body: {pos_x: blob.pos.x,
+                pos_y: blob.pos.y,
+                radius: blob.r}})
+    
     blobs_eaten = []
+    blobs = []
+    init_spawned_foods = false;
 
   }
 

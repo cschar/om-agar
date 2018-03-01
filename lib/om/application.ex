@@ -46,6 +46,15 @@ defmodule Om.Application do
                   end)
 
 
+#    food_spots =
+#      (1..200) |>
+#        Enum.map(fn food_id ->
+#                 { Integer.to_string(food_id) ,
+#                   %{x: Enum.random(-400..400),
+#                     y: Enum.random(-400..400)}}end ) |>
+#        Map.new
+
+
     update = %{ player_id: :food_master,
                 player_pos: %{ spots: food_spots}}
     Blobserverpos.update_message(update)
