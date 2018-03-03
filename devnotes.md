@@ -19,3 +19,12 @@ Repo.all(from u in User, select: u.email)
 
 cd assets
 node_modules/brunch/bin/brunch build
+
+
+## check out TALON for admin dashboard
+https://github.com/talonframework/talon
+
+
+## creating json resource
+
+mix phx.gen.json Accounts Orb orbs name:string
