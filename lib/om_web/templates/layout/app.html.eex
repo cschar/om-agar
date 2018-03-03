@@ -17,7 +17,7 @@
         <nav role="navigation">
           <ul class="nav nav-pills pull-right">
             <li><a href="/">Home </a></li>
-            <li><a href="/chat">chat </a></li>
+            <li><a href="/blob">blob </a></li>
             <%= if @conn.assigns[:current_user] do %>
             <li><h3><a href="/logout">logout </a></h3></li>
             <% end %>

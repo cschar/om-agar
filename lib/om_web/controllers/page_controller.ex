@@ -11,15 +11,15 @@ defmodule OmWeb.PageController do
 
   ## custom plug set in router, defined in controllers/auth.ex
   import Om.Auth
-  plug :authenticate_user  when action in [:chat]
+  plug :authenticate_user  when action in [:blob]
 
 
   def index(conn, _params) do
     render conn, "index.html", list: Chatserver.get_messages
   end
 
-  def chat(conn, _params) do
-    render conn, "chat.html"
+  def blob(conn, _params) do
+    render conn, "blob.html"
   end
 
   def create(conn, %{ "page" => %{"username" => username}}) do
@@ -31,7 +31,7 @@ defmodule OmWeb.PageController do
       {:ok, user} ->
         conn
         |> Om.Auth.login(user)
-        |> redirect(to: page_path(conn, :chat))
+        |> redirect(to: page_path(conn, :blob))
       {:error, changeset} ->
         conn
         |> put_flash(:info, ["Error", inspect(changeset)] )
