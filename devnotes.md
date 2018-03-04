@@ -28,3 +28,10 @@ https://github.com/talonframework/talon
 ## creating json resource
 
 mix phx.gen.json Accounts Orb orbs name:string
+
+
+### phoenix installers... 3 letters words for 1.3
+phoenix new (1.2!!!)
+phx.new  (1.3) 
+coherence.install --full  (1.2!!)
+coh.install --full (1.3)

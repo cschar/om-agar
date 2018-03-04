@@ -3,12 +3,13 @@ defmodule Om.User do
   import Ecto.Changeset
   alias Om.User
 
+  use Coherence.Schema                                    # Add this
+
 
   schema "users" do
-    field :bio, :string
-    field :email, :string
     field :name, :string
-    field :number_of_pets, :integer
+    field :email, :string
+    coherence_schema()                                    # Add this
 
     timestamps()
   end
@@ -16,9 +17,24 @@ defmodule Om.User do
   @doc false
   def changeset(%User{} = user, attrs) do
     user
-    |> cast(attrs, [:name, :email, :bio, :number_of_pets])
+    |> cast(attrs, [:name])
     |> validate_required([:name])
 #    |> validate_required([:name, :email, :bio])
 #    |> validate_required([:name, :email, :bio, :number_of_pets])
   end
+
+#  def changeset(model, params \\ %{}) do
+#    model
+#    |> cast(params, [:name, :email] ++ coherence_fields)  # Add this
+#    |> validate_required([:name, :email])
+#    |> validate_format(:email, ~r/@/)
+#    |> validate_coherence(params)                         # Add this
+#  end
+#
+#  def changeset(model, params, :password) do
+#    model
+#    |> cast(params, ~w(password password_confirmation reset_password_token reset_password_sent_at))
+#    |> validate_coherence_password_reset(params)
+#  end
+
 end

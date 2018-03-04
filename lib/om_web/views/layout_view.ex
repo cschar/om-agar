@@ -3,7 +3,7 @@ defmodule OmWeb.LayoutView do
 
 
   def title do
-    "Awesome New Title!"
+    "[][]"
   end
   
 end

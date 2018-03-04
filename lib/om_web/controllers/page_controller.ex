@@ -12,6 +12,7 @@ defmodule OmWeb.PageController do
   ## custom plug set in router, defined in controllers/auth.ex
   import Om.Auth
   plug :authenticate_user  when action in [:blob]
+#  plug Coherence.Authentication.Session, [protected: true] when action != :index
 
 
   def index(conn, _params) do
