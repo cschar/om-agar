@@ -29,37 +29,33 @@ defmodule Om.Application do
     Om.Blobserver.start_link
     Om.Blobserver.add_message("user0")
 
+
     Blobserverpos.start_link()
     update = %{ player_id: :greenie,
                   player_pos: %{ x: 120, y: 120, r: 45}}
     Blobserverpos.update_message(update)
 
-
-
-    num = 1..200
-    Enum.to_list(num)
-    food_spots = Enum.map(num, fn x ->
-                    %{ food_id: x,
-                       x: Enum.random(-400..400),
-                       y: Enum.random(-400..400)
-                    }
-                  end)
-
-
-#    food_spots =
-#      (1..200) |>
-#        Enum.map(fn food_id ->
-#                 { Integer.to_string(food_id) ,
-#                   %{x: Enum.random(-400..400),
-#                     y: Enum.random(-400..400)}}end ) |>
-#        Map.new
-
-
+    food_spots = Blobserverpos.gen_food_spots()
     update = %{ player_id: :food_master,
                 player_pos: %{ spots: food_spots}}
     Blobserverpos.update_message(update)
 
-    # Blobserver.start_link
+
+    Om.Stikserver.start_link
+
+    #50x50 grid --> 2500
+    grid_spot_num = :math.pow(15,2)
+    grid_spots =
+      (1..grid_spot_num) |>
+        Enum.map(fn xy_pos ->
+
+                 { xy_pos ,
+                   %{current_object_id: -1,
+                     food_level: Enum.random(1..10)}}end ) |>
+        Map.new
+
+
+
 
     # See https://hexdocs.pm/elixir/Supervisor.html
     # for other strategies and supported options

@@ -58,4 +58,26 @@ defmodule Om.Blobserverpos do
   def handle_call(:get_messages, _from, messages) do
     {:reply, messages, messages}
   end
+
+
+
+
+  def gen_food_spots do
+    num = 1..200
+    Enum.to_list(num)
+    food_spots = Enum.map(num, fn x ->
+                    %{ food_id: x,
+                       x: Enum.random(-400..400),
+                       y: Enum.random(-400..400)
+                    }
+                  end)
+    food_spots
+#    food_spots =
+#      (1..200) |>
+#        Enum.map(fn food_id ->
+#                 { Integer.to_string(food_id) ,
+#                   %{x: Enum.random(-400..400),
+#                     y: Enum.random(-400..400)}}end ) |>
+#        Map.new
+  end
 end

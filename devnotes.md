@@ -35,3 +35,8 @@ phoenix new (1.2!!!)
 phx.new  (1.3) 
 coherence.install --full  (1.2!!)
 coh.install --full (1.3)
+
+
+##erlang modules in eelixir
+
+:math.pow(2,6)  2^6
