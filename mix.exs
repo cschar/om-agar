@@ -42,6 +42,9 @@ defmodule Om.Mixfile do
       {:gettext, "~> 0.11"},
       {:cowboy, "~> 1.0"},
       {:poison, "~> 3.1"},
+      {:flow, "~> 0.13"},
+      {:gen_stage, "~> 0.12"},
+      {:httpotion, "~> 3.1.0"},
       {:coherence, github: "smpallen99/coherence"}
 
     ]

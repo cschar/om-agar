@@ -44,7 +44,8 @@ defmodule Om.Application do
     Om.Stikserver.start_link
 
     #50x50 grid --> 2500
-    grid_spot_num = :math.pow(15,2)
+#    grid_spot_num = :math.pow(15,2)
+    grid_spot_num = 15*15
     grid_spots =
       (1..grid_spot_num) |>
         Enum.map(fn xy_pos ->

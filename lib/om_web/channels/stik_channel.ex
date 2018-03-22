@@ -1,4 +1,4 @@
-defmodule OmWeb.AgarChannel do
+defmodule OmWeb.StikChannel do
 #  use Phoenix.Channel
   use Phoenix.Channel, log_join: :info, log_handle_in: false
   # alias SimpleChat.ShoppingList
