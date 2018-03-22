@@ -7,6 +7,9 @@ params = %{name: "Joe Example", email: "joe@example.com", bio: "An example to al
 changeset = User.changeset(%User{}, params)
 ```
 
+
+:observer.start
+
 alias Om.{Repo, User}
 Repo.insert(%User{email: "user1@example.com"})
 Repo.all(User)

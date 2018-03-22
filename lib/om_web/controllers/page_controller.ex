@@ -46,4 +46,11 @@ defmodule OmWeb.PageController do
 	  |> redirect(to: page_path(conn, :index))
   end
 
+
+  def sendjob(conn,  %{ "sendjobpost" => %{"floob" => floob}}) do
+    conn
+  	|> put_flash(:info, ["Job sent w info:" <> inspect(floob)] )
+	  |> redirect(to: page_path(conn, :index))
+  end
+
 end

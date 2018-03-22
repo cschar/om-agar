@@ -20,13 +20,13 @@ defmodule Om.Mixfile do
   def application do
     [
       mod: {Om.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [:logger, :runtime_tools, :faker]
     ]
   end
 
   # Specifies which paths to compile per environment.
   defp elixirc_paths(:test), do: ["lib", "test/support"]
-  defp elixirc_paths(_),     do: ["lib"]
+  defp elixirc_paths(_),     do: ["lib", "lib/ascratch"]
 
   # Specifies your project dependencies.
   #
@@ -42,6 +42,7 @@ defmodule Om.Mixfile do
       {:gettext, "~> 0.11"},
       {:cowboy, "~> 1.0"},
       {:poison, "~> 3.1"},
+      {:faker, "~> 0.9"},
       {:flow, "~> 0.13"},
       {:gen_stage, "~> 0.12"},
       {:httpotion, "~> 3.1.0"},

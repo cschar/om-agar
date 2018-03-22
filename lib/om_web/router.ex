@@ -51,6 +51,7 @@ defmodule OmWeb.Router do
     post "/login", PageController, :create
     get "/logout", PageController, :logout
 
+    post "/sendjob", PageController, :sendjob
     get "/blob", PageController, :blob
     get "/hello", HelloController, :index
     get "/hello/:messenger", HelloController, :show

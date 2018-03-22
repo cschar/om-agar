@@ -90,3 +90,14 @@ Process.sleep(:infinity)
 # consumer asks for 5 MORE
 # (while producer is generating those, consumer goes back to dealing
 #  with current items)
+
+#
+#    {:ok, a} = GenStage.start_link(A, 0, name: :prod1)
+#    #Access this process globally
+#    #Process.whereis(:prod1)
+#    ##PID<0.114.0>
+#
+#    {:ok, c} = GenStage.start_link(C, :ok)
+#    GenStage.sync_subscribe(c,
+#      max_demand: 10, min_demand: 2,
+#      to: a)

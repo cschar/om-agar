@@ -5,9 +5,9 @@ defmodule Om.Blobserver do
 
   def start_link do
     # We now start the GenServer with a `name` option.
-
-    GenServer.start_link(__MODULE__, [], name: :blob_room)
     IO.puts "== Genserver Blobserver started link"
+    GenServer.start_link(__MODULE__, [], name: :blob_room)
+
   end
 
 #  def add_message(pid, message) do

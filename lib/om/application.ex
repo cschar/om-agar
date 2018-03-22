@@ -20,8 +20,13 @@ defmodule Om.Application do
       # worker(Om.Worker, [arg1, arg2, arg3]),
 
             worker(Om.Periodically, [])
+            #worker(A, 0, [name: :bob300])
 
     ]
+
+#    Faker.start
+
+
 
     ### trying to use genserver...
     Chatserver.start_link

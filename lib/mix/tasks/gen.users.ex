@@ -1,9 +1,9 @@
 defmodule Mix.Tasks.Gen.Users do
   use Mix.Task
 
-  alias Om.{Repo, User}
+  #alias Om.{Repo, User}
 
-  @users ["ana", "aba"]
+  #@users ["ana", "aba"]
 
   def run(_args) do
     Mix.shell.info "Generating Users..."
