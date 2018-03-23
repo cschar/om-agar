@@ -15,12 +15,14 @@ defmodule Om.Application do
       supervisor(Om.Repo, []),
       # Start the endpoint when the application starts
       supervisor(OmWeb.Endpoint, []),
-      # supervisor(Om.Blobserver, ["foo"])
+
+      supervisor(Om.InfoSys.Supervisor, []),
+      #worker(Om.InfoSys.WorkerCount, [10]),
+
       # Start your own worker by calling: Om.Worker.start_link(arg1, arg2, arg3)
       # worker(Om.Worker, [arg1, arg2, arg3]),
 
-            worker(Om.Periodically, [])
-            #worker(A, 0, [name: :bob300])
+      worker(Om.Periodically, [])
 
     ]
 

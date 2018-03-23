@@ -46,6 +46,7 @@ defmodule Om.Mixfile do
       {:flow, "~> 0.13"},
       {:gen_stage, "~> 0.12"},
       {:httpotion, "~> 3.1.0"},
+      {:httpoison, "~> 1.0"},
       {:coherence, github: "smpallen99/coherence"}
 
     ]

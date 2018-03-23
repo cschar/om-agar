@@ -21,14 +21,14 @@ defmodule A do
       inspect(x) <> " " <> inspect(demand)
 #      Faker.Address.city <> inspect(demand)
     end)
-    receive do
-      {:process_item, item_num} ->
-        IO.puts("processing item" <> item_num)
-        events = events ++ [inspect(item_num) <> " ITEM"]
-
-    after
-      3_000 -> IO.puts("[][][]No external production heard, sending vanilla data")
-    end
+#    receive do
+#      {:process_item, item_num} ->
+#        IO.puts("processing item" <> item_num)
+#        events = events ++ [inspect(item_num) <> " ITEM"]
+#
+#    after
+#      3_000 -> IO.puts("[][][]No external production heard, sending vanilla data")
+#    end
 
 #    events = Enum.to_list(counter..counter+demand-1)
 
@@ -154,14 +154,14 @@ defmodule Om.Gen.A do
       inspect(x) <> " " <> inspect(demand)
 #      Faker.Address.city <> inspect(demand)
     end)
-    receive do
-      {:process_item, item_num} ->
-        IO.puts("processing item" <> item_num)
-        events = events ++ [inspect(item_num) <> " ITEM"]
-
-    after
-      3_000 -> IO.puts("[][][]No external production heard, sending vanilla data")
-    end
+#    receive do
+#      {:process_item, item_num} ->
+#        IO.puts("processing item" <> item_num)
+#        events = events ++ [inspect(item_num) <> " ITEM"]
+#
+#    after
+#      3_000 -> IO.puts("[][][]No external production heard, sending vanilla data")
+#    end
 
 #    events = Enum.to_list(counter..counter+demand-1)
 
