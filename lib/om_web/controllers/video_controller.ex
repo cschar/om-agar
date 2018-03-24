@@ -7,8 +7,9 @@ defmodule OmWeb.VideoController do
   alias Om.Repo
 
   ## custom plug set in router, defined in controllers/auth.ex
- # import Om.Auth
- # plug :authenticate_user  when action in [:new, :create, :edit, :update, :delete]
+  import Om.Auth
+  plug :authenticate_user
+  #plug :authenticate_user  when action in [:new, :create, :edit, :update, :delete]
 #  plug Coherence.Authentication.Session, [protected: true] when action != :index
 
   #APPLIED at end of plug pipeline
@@ -17,7 +18,9 @@ defmodule OmWeb.VideoController do
     [conn, conn.params, conn.assigns.current_user])
 
   # will give  ane xtra param on controllers now
-  # conn.assigns.current_user
+  # 3rd param ---> conn.assigns.current_user
+
+  #alternateively could have just used conn.assigns.current_user...
 end
 
   def index(conn, _params, user) do
