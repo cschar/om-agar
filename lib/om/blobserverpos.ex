@@ -42,8 +42,8 @@ defmodule Om.Blobserverpos do
 
 #  new_message = %{ player_id: 12, player_pos: %{ x: 12, y: 30}}
 
-
-    {old_val, new_map } =
+    # old_val, new_map
+    {_, new_map } =
       Map.get_and_update(pos_map, pos[:player_id],
       fn current_value -> { current_value, pos[:player_pos]}
       end)

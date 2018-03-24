@@ -33,7 +33,8 @@ defmodule Om.Application do
 #    Faker.start
 
 
-    :observer.start
+    #:observer.start
+
     ### trying to use genserver...
     Chatserver.start_link
     Chatserver.add_message("foo")

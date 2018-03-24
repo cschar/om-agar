@@ -1,7 +1,6 @@
 defmodule Om.Periodically do
   use GenServer
 
-  alias Om.Blobserver
   alias Om.Blobserverpos
 
   def start_link do

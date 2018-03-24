@@ -44,12 +44,20 @@ defmodule OmWeb.Router do
     coherence_routes :protected
   end
 
+
+  scope "/manage", OmWeb do
+    pipe_through :browser # Use the default browser stack
+
+    resources "/videos", VideoController
+  end
   scope "/", OmWeb do
     pipe_through :browser # Use the default browser stack
 
     get "/", PageController, :index
     post "/login", PageController, :create
     get "/logout", PageController, :logout
+
+
 
     post "/sendjob", PageController, :sendjob
     get "/blob", PageController, :blob
