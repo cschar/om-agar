@@ -8,6 +8,8 @@ defmodule Om.Accounts do
 
   alias Om.Accounts.Video
 
+
+
   @doc """
   Returns the list of videos.
 
