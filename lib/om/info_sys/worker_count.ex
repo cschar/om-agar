@@ -1,6 +1,6 @@
 defmodule Om.InfoSys.WorkerCount do
   use GenServer
-
+  #Om.InfoSys.WorkerCount.start_link(2)
   def start_link(initial_value) do
     IO.puts ("strart link counter")
     GenServer.start_link(__MODULE__, initial_value)

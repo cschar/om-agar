@@ -48,6 +48,18 @@ defmodule OmWeb.PageController do
 
 
   def sendjob(conn,  %{ "sendjobpost" => %{"floob" => floob}}) do
+    name = String.to_atom(floob <> inspect(Enum.random(0..100)))
+
+  #start up a task under our TaskSupervisor inside supervision tree
+  Task.Supervisor.start_child(MyApp.TaskSupervisor, fn() ->
+           Process.sleep 12000
+           IO.puts("Task done from sendjob" <> inspect(name))
+  end)
+
+  #start up a genserver
+
+  {:ok, _} = GenServer.start_link(Stack, [:hello], name: name)
+
     conn
   	|> put_flash(:info, ["Job sent w info:" <> inspect(floob)] )
 	  |> redirect(to: page_path(conn, :index))
