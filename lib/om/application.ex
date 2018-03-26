@@ -72,6 +72,12 @@ defmodule Om.Application do
 
     # See https://hexdocs.pm/elixir/Supervisor.html
     # for other strategies and supported options
+    ## :one_for_one  , if one terminates, restart that one
+    ## :one_for_all, if one terminates, restart ALL of them
+    ## :rest_for_one,  only restart procs below one that terminated
+    ## :simple_one_for_one,
+              # for child processes of same type
+              
     opts = [strategy: :one_for_one, name: Om.Supervisor]
     Supervisor.start_link(children, opts)
   end
