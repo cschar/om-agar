@@ -1,0 +1,17 @@
+<div id="messages"></div>
+<input id="chat-input" type="text"></input>
+
+
+<div class="foo">
+-------
+</div>
+
+<div class="row">
+
+
+</div>
+
+<div id="sketchContainer" style="background-color:grey; margin-top:20px; padding:2px">
+</div>
+
+<%= render_existing @view_module, "scripts.html", assigns %>

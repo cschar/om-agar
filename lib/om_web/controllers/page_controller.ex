@@ -23,6 +23,15 @@ defmodule OmWeb.PageController do
     render conn, "blob.html"
   end
 
+  def grid(conn, _params) do
+    render conn, "grid.html"
+  end
+#
+#  def render("scripts.html", _assigns) do
+#    ~s{<script>require("web/static/js/posts").Post.run()</script>}
+#    |> raw
+#  end
+
   def create(conn, %{ "page" => %{"username" => username}}) do
     changeset = User.changeset(%User{},
       %{name: username})

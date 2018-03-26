@@ -19,7 +19,7 @@ import "phoenix_html"
 // paths "./socket" or full ones "web/static/js/socket".
 
 import socket from "./socket"
-import socket_agar from "./socket_agar"
+
 
 // import p5 from "./p5.js"
 
@@ -27,7 +27,9 @@ import socket_agar from "./socket_agar"
 // require('./sketch1.js')
 // require('./p5.js')
 
-console.log("app.js loaded")
+//console.log("app.js loaded")
 
-
-require("./sketch.js");
+//if(window.location.pathname === '/blob'){
+//  import socket_agar from "./socket_agar"
+//  require("./sketch.js");
+//}

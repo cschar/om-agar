@@ -61,6 +61,7 @@ defmodule OmWeb.Router do
 
     post "/sendjob", PageController, :sendjob
     get "/blob", PageController, :blob
+    get "/grid", PageController, :grid
     get "/hello", HelloController, :index
     get "/hello/:messenger", HelloController, :show
   end

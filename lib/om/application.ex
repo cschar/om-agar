@@ -53,7 +53,7 @@ defmodule Om.Application do
     Blobserverpos.update_message(update)
 
 
-    Om.Stikserver.start_link
+    #Om.Stikserver.start_link
 
     #50x50 grid --> 2500
 #    grid_spot_num = :math.pow(15,2)
