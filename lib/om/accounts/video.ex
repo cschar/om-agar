@@ -17,6 +17,8 @@ defmodule Om.Accounts.Video do
     belongs_to :user, Om.User
 #    field :user_id, :id
 
+    belongs_to :category, Om.Accounts.Category
+
     timestamps()
   end
 

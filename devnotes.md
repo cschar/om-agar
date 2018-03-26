@@ -29,7 +29,11 @@ https://github.com/talonframework/talon
 
 # generators
 
+
 mix phx.gen.html Accounts Video videos user_id:references:users url:string title:string description:text
+
+mix phx.gen.context Accounts Category categories name:string
+mix ecto.gen.migration add_category_id_to_video
 
 # Then add in model refernece lines
 ```
