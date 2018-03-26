@@ -21,15 +21,14 @@ import "phoenix_html"
 import socket from "./socket"
 
 
-// import p5 from "./p5.js"
 
-// require('./p5.dom.js')
-// require('./sketch1.js')
-// require('./p5.js')
+import socket_agar from "./socket_agar"
 
-//console.log("app.js loaded")
+try {
+  require("./sketch.js");
 
-//if(window.location.pathname === '/blob'){
-//  import socket_agar from "./socket_agar"
-//  require("./sketch.js");
-//}
+}catch(err){
+  console.log("no blob")
+}
+
+console.log("app.js loaded")

@@ -19,6 +19,8 @@ defmodule OmWeb.PageController do
     render conn, "index.html", list: Chatserver.get_messages
   end
 
+
+
   def blob(conn, _params) do
     render conn, "blob.html"
   end
@@ -26,6 +28,8 @@ defmodule OmWeb.PageController do
   def grid(conn, _params) do
     render conn, "grid.html"
   end
+
+
 #
 #  def render("scripts.html", _assigns) do
 #    ~s{<script>require("web/static/js/posts").Post.run()</script>}

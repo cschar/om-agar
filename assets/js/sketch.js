@@ -1,5 +1,8 @@
 
 
+if(window.location.pathname !== '/blob'){
+  throw new Error("bad path")
+}
 var blob;
 
 var blobs = [];

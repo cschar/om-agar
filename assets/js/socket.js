@@ -59,6 +59,10 @@ socket.connect()
 //  .receive("ok", resp => { console.log("Joined successfully", resp) })
 //  .receive("error", resp => { console.log("Unable to join", resp) })
 
+
+if(window.location.pathname === '/grid'
+    || window.location.pathname === '/blob'){
+
 let channel = socket.channel("room:lobby", {})
 let chatInput         = document.querySelector("#chat-input")
 let messagesContainer = document.querySelector("#messages")
@@ -81,7 +85,7 @@ channel.on("new_msg", payload => {
 channel.join()
   .receive("ok", resp => { console.log("Joined successfully", resp) })
   .receive("error", resp => { console.log("Unable to join", resp) })
-
+}
 
 
 export default socket
