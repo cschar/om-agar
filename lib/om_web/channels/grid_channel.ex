@@ -18,18 +18,9 @@ defmodule OmWeb.GridChannel do
 
   def join("grid:lobby", _message, socket) do
     new_id = string_of_length(5)
-#
-#
-##    player_id = "user:#{socket.assigns.current_user.id} -- #{socket.assigns.current_user.name}"
-#
-#    ## set in user_socket.ex Connect
-#    player_id = "#{socket.assigns.current_user.id}"
-#    new_blob_info = %{player_id: player_id,
-#                     player_pos: %{x: 200, y: 200}}
 
-#    Blobserverpos.update_message(new_blob_info)
 
-    {:ok, %{}, socket }
+    {:ok, %{ grid: [1,2,3]}, socket }
   end
 
   def join("grid:" <> _private_room_id, _params, _socket) do
@@ -48,29 +39,6 @@ defmodule OmWeb.GridChannel do
     {:noreply, socket}
   end
 
-#  def handle_in("food_update", %{"body" => body}, socket) do
-#
-#    if body["eaten"] != %{} do
-#      newly_eaten = body["eaten"]
-#      food_master = Blobserverpos.get_messages()[:food_master]
-#      food_spots = food_master[:spots]
-#
-#      leftovers = Enum.filter(food_spots,
-#        fn(spot) ->  spot[:food_id] not in newly_eaten
-#        end)
-#
-##      leftovers = Enum.filter(food_spots,
-##        fn {k,v} -> k not in newly_eaten end)
-#
-#
-#        update = %{ player_id: :food_master,
-#                    player_pos: %{ spots: leftovers}}
-#        Blobserverpos.update_message(update)
-#    end
-
-#    broadcast! socket, "new_msg", %{body: body}
-#    {:noreply, socket}
-#  end
 
 
   def handle_in("new_pos", %{"body" => body}, socket) do
@@ -89,19 +57,9 @@ defmodule OmWeb.GridChannel do
     {:noreply, socket}
   end
 
-  def handle_out("new_pos", payload, socket) do
-
-    IO.puts("handle out new pos" <> inspect(payload))
-
-    heartbeat_body = Blobserverpos.get_messages()
-    broadcast! socket, "heartbeat", %{body: heartbeat_body}
-
-    {:noreply, socket}
-  end
 
 
   def handle_out("heartbeat", payload, socket) do
-    IO.puts("handle out heartbeat " <> inspect(payload))
 
     push socket, "heartbeat", payload
     {:noreply, socket}

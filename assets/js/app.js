@@ -34,7 +34,7 @@ try {
   //require("./grid_sketch.js");
   require("./grid_basic.js");
 }catch(err){
-  console.log("no grid")
+  console.log(err)
 }
 
 console.log("app.js loaded")

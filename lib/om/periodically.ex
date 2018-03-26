@@ -78,6 +78,10 @@ defmodule Om.Periodically do
     heartbeat_msg = Blobserverpos.get_messages()
     OmWeb.Endpoint.broadcast("agar:lobby", "heartbeat", heartbeat_msg)
 
+    OmWeb.Endpoint.broadcast("grid:lobby", "heartbeat",
+      %{gridlist: Enum.take_random((1000..200000), 5),
+        foo: 2})
+
     schedule_work() # Reschedule once more
     {:noreply, state}
   end
