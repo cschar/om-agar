@@ -17,4 +17,8 @@
 
 <button class="clicker"> click</button>
 
+<div id="gridroot">
+
+</div>
+
 <%= render_existing @view_module, "grid", assigns %>

@@ -1,18 +1,14 @@
-defmodule OmWeb.StikChannel do
+defmodule OmWeb.GridChannel do
 #  use Phoenix.Channel
   use Phoenix.Channel, log_join: :info, log_handle_in: false
-  # alias SimpleChat.ShoppingList
-  alias Om.Blobserver
-  alias Om.Blobserverpos
 
 
-
-  def terminate(_reason, socket) do
-    player_id = socket.assigns.current_user.id
-    Blobserverpos.remove_message_id(player_id)
-
-    IO.puts "agar_channel terminating , removed " <> inspect(player_id)
-  end
+#  def terminate(_reason, socket) do
+#    player_id = socket.assigns.current_user.id
+#    Blobserverpos.remove_message_id(player_id)
+#
+#    IO.puts "agar_channel terminating , removed " <> inspect(player_id)
+#  end
 
   ### topic:subtopic
   ## call elsehwere
@@ -20,29 +16,29 @@ defmodule OmWeb.StikChannel do
   ##  --> OmWeb.Endpoint.broadcast("agar", "heartbeat", %{ msg: payload})
 
 
-  def join("agar:lobby", _message, socket) do
+  def join("grid:lobby", _message, socket) do
     new_id = string_of_length(5)
-
-
-#    player_id = "user:#{socket.assigns.current_user.id} -- #{socket.assigns.current_user.name}"
-
-    ## set in user_socket.ex Connect
-    player_id = "#{socket.assigns.current_user.id}"
-    new_blob_info = %{player_id: player_id,
-                     player_pos: %{x: 200, y: 200}}
+#
+#
+##    player_id = "user:#{socket.assigns.current_user.id} -- #{socket.assigns.current_user.name}"
+#
+#    ## set in user_socket.ex Connect
+#    player_id = "#{socket.assigns.current_user.id}"
+#    new_blob_info = %{player_id: player_id,
+#                     player_pos: %{x: 200, y: 200}}
 
 #    Blobserverpos.update_message(new_blob_info)
 
-    {:ok, new_blob_info, socket }
+    {:ok, %{}, socket }
   end
 
-  def join("agar:" <> _private_room_id, _params, _socket) do
+  def join("grid:" <> _private_room_id, _params, _socket) do
     {:error, %{reason: "unauthorized"}}
   end
 
   def handle_in("new_msg", %{"body" => body}, socket) do
     # could log the message into an analytics thing
-    IO.puts("agar input" <> body)
+
     broadcast! socket, "new_msg", %{body: body}
     {:noreply, socket}
   end
@@ -52,29 +48,29 @@ defmodule OmWeb.StikChannel do
     {:noreply, socket}
   end
 
-  def handle_in("food_update", %{"body" => body}, socket) do
-
-    if body["eaten"] != %{} do
-      newly_eaten = body["eaten"]
-      food_master = Blobserverpos.get_messages()[:food_master]
-      food_spots = food_master[:spots]
-
-      leftovers = Enum.filter(food_spots,
-        fn(spot) ->  spot[:food_id] not in newly_eaten
-        end)
-
+#  def handle_in("food_update", %{"body" => body}, socket) do
+#
+#    if body["eaten"] != %{} do
+#      newly_eaten = body["eaten"]
+#      food_master = Blobserverpos.get_messages()[:food_master]
+#      food_spots = food_master[:spots]
+#
 #      leftovers = Enum.filter(food_spots,
-#        fn {k,v} -> k not in newly_eaten end)
-
-
-        update = %{ player_id: :food_master,
-                    player_pos: %{ spots: leftovers}}
-        Blobserverpos.update_message(update)
-    end
+#        fn(spot) ->  spot[:food_id] not in newly_eaten
+#        end)
+#
+##      leftovers = Enum.filter(food_spots,
+##        fn {k,v} -> k not in newly_eaten end)
+#
+#
+#        update = %{ player_id: :food_master,
+#                    player_pos: %{ spots: leftovers}}
+#        Blobserverpos.update_message(update)
+#    end
 
 #    broadcast! socket, "new_msg", %{body: body}
-    {:noreply, socket}
-  end
+#    {:noreply, socket}
+#  end
 
 
   def handle_in("new_pos", %{"body" => body}, socket) do

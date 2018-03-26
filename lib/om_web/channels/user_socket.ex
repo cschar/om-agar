@@ -4,7 +4,7 @@ defmodule OmWeb.UserSocket do
   ## Channels
    channel "room:*", OmWeb.RoomChannel
    channel "agar:*", OmWeb.AgarChannel
-   channel "stik:*", OmWeb.StikChannel
+   channel "grid:*", OmWeb.GridChannel
 
 
 

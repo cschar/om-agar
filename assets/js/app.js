@@ -25,10 +25,16 @@ import socket from "./socket"
 import socket_agar from "./socket_agar"
 
 try {
-  require("./sketch.js");
-
+  require("./blobsketch.js");
 }catch(err){
   console.log("no blob")
+}
+
+try {
+  //require("./grid_sketch.js");
+  require("./grid_basic.js");
+}catch(err){
+  console.log("no grid")
 }
 
 console.log("app.js loaded")

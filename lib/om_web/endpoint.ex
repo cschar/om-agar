@@ -4,6 +4,7 @@ defmodule OmWeb.Endpoint do
   socket "/socket", OmWeb.UserSocket
   socket "/socket_agar", OmWeb.UserSocket
 
+
   # Serve at "/" the static files from "priv/static" directory.
   #
   # You should set gzip to true if you are running phoenix.digest
