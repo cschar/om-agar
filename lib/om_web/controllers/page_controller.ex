@@ -5,6 +5,7 @@ defmodule OmWeb.PageController do
   alias Om.Chatserver
   alias Om.{Repo, User}
 
+
   plug :foo_total
   plug :foo_email
   plug :foo_chatserver
@@ -69,9 +70,25 @@ defmodule OmWeb.PageController do
            IO.puts("Task done from sendjob" <> inspect(name))
   end)
 
-  #start up a genserver
+  Task.Supervisor.start_child(MyApp.TaskSupervisor, fn() ->
+           Process.sleep 3000
 
-  {:ok, _} = GenServer.start_link(Stack, [:hello], name: name)
+           words = Om.Genius.homepage_words()
+           IO.inspect words
+
+           ## wont display since conn is already expired
+           put_flash(conn, :info, ["job done: fetched words" <> inspect(words)] )
+
+           attrs = %{title: "genius crawl",
+                     description: Enum.join(words, " "),
+                     url: "genius.com"}
+          changeset =
+            conn.assigns[:current_user]
+            |> Ecto.build_assoc(:videos, attrs)
+
+          Repo.insert(changeset)
+  end)
+
 
     conn
   	|> put_flash(:info, ["Job sent w info:" <> inspect(floob)] )

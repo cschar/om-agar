@@ -1,5 +1,13 @@
 
 
+<%= form_for @conn, page_path(@conn, :sendjob), [as: :sendjobpost], fn f -> %>
+      <div class="form-group">
+        <%= text_input f, :floob, placeholder: "[not used] genius search keywords", class: "form-control" %>
+      </div>
+
+    <%= submit "Submit job", class: "btn btn-primary" %>
+<% end %>
+
 <h2> Current user videos:</h2>
 <table class="table">
   <thead>

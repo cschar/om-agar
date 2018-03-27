@@ -20,7 +20,7 @@ defmodule Om.Application do
       {Task.Supervisor, name: MyApp.TaskSupervisor},
       {MyApp.Supervisor, name: Toma},
 #      supervisor(Task.Supervisor, name: MyApp.TaskSupervisor),
-      supervisor(Om.InfoSys.Supervisor, []),
+      supervisor(Om.InfoSys.Supervisor, [], name: :count),
 
 
       worker(Om.PeriodicallyBlob, [], name: :Pero),
@@ -56,10 +56,29 @@ defmodule Om.Application do
     # See https://hexdocs.pm/elixir/Supervisor.html
     # for other strategies and supported options
     ## :one_for_one  , if one terminates, restart that one
+
     ## :one_for_all, if one terminates, restart ALL of them
+
     ## :rest_for_one,  only restart procs below one that terminated
+#      worker(worker0, [])  # wont restart
+#      worker(worker1, [])  # terminated
+#      worker(worker2, [])  # will restart
+#      worker(worker3, [])  # will restart
+#
     ## :simple_one_for_one,
+    # only allows ONE type of worker to be defined
+    # when started, gives an EMPTY list of children
+    # even though we defined 1...
+
+    ## wel have to manually start it
+    ## Supervisor.start_child(super_pid, [])
+    ## note we dont specify anything about worker process
+
+    ## to shutdown a worker
+    #  Supervisor.terminate_child(super_pid, worker_pid)
+
               # for child processes of same type
+              # TODO: try adding for each user that is logged on
               
     opts = [strategy: :one_for_one, name: Om.Supervisor]
     Supervisor.start_link(children, opts)

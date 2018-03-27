@@ -74,8 +74,6 @@ defmodule Om.PeriodicallyGrid do
 
       end)
 
-    IO.puts gru_move_chance
-
     stay_put_chance = Enum.random(1..10)
 
     if gru_move_chance > stay_put_chance do

@@ -47,9 +47,8 @@
         <%= if @conn.assigns[:current_user] do %>
           <p> current_user:  <%= inspect(@conn.assigns[:current_user].name) %> </p>
           <p> auth token:  <%= inspect(@conn.assigns[:user_token]) %> </p>
+
         <% end %>
-
-
 
         <%= render @view_module, @view_template, assigns %>
       </main>

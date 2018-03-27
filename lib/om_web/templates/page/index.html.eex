@@ -15,14 +15,6 @@
 
 </div>
 
-<%= form_for @conn, page_path(@conn, :sendjob), [as: :sendjobpost], fn f -> %>
-
-  <div class="form-group">
-    <%= text_input f, :floob, placeholder: "job info", class: "form-control" %>
-  </div>
-
-  <%= submit "Submit job", class: "btn btn-primary" %>
-<% end %>
 
 <p>  <%= @conn.assigns[:foo_email] %> </p>
 
