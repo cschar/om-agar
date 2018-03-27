@@ -8,3 +8,33 @@
 .column2 {
   background-color: lightgoldenrodyellow;
 }
+
+
+.grid-square {
+  background-color: #d0d0d0;
+  padding-right: 5px;
+  margin-right: 2px;
+}
+
+
+.grid-square-player-occupied {
+  background-color: #b6ec8d;
+  padding-right: 5px;
+  margin-right: 2px;
+}
+
+.grid-square-gru-occupied {
+  background-color: #d0768b;
+  padding-right: 5px;
+  margin-right: 2px;
+}
+
+.grid-square-hover {
+  background-color: #8b92d0;
+  padding-right: 5px;
+  margin-right: 2px;
+}
+
+.other-player-tile {
+  background-color: #ecd084;
+}

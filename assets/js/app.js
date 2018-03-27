@@ -25,7 +25,7 @@ import socket from "./socket"
 import socket_agar from "./socket_agar"
 
 try {
-  require("./blobsketch.js");
+  require("./blob_sketch.js");
 }catch(err){
   console.log("no blob")
 }
