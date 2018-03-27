@@ -3,7 +3,13 @@ defmodule OmWeb.GridChannel do
   use Phoenix.Channel, log_join: :error, log_handle_in: false
 
 
+  def terminate(_reason, socket) do
 
+  Om.PeriodicallyGrid.remove_player(
+    socket.assigns.current_user.id)
+
+    IO.puts "GRID_channel terminating , removed " <> inspect(socket.id)
+  end
   ### topic:subtopic
   ## call elsehwere
   ##  OmWeb.Endpoint.broadcast(topic, event, msg)

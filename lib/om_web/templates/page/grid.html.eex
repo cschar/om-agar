@@ -6,19 +6,17 @@
 -------
 </div>
 
+
+
+
 <div class="row">
 
+<div class="col md-6">
+<div id="gridroot"></div>
+</div>
+
 
 </div>
 
-<div id="sketchContainer" style="background-color:grey; margin-top:20px; padding:2px">
-</div>
-
-
-<button class="clicker"> click</button>
-
-<div id="gridroot">
-
-</div>
-
+<button class="clicker"> </button>
 <%= render_existing @view_module, "grid", assigns %>

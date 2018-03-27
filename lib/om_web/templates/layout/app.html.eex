@@ -43,7 +43,7 @@
       <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
 
       <main role="main">
-        <p> foo total:  <%= @conn.assigns[:foo_total] %> </p>
+        <p> total :  <%= @conn.assigns[:foo_total] %> </p>
         <%= if @conn.assigns[:current_user] do %>
           <p> current_user:  <%= inspect(@conn.assigns[:current_user].name) %> </p>
           <p> auth token:  <%= inspect(@conn.assigns[:user_token]) %> </p>

@@ -86,7 +86,8 @@ class GameBox extends React.Component {
         grid: [3,3,3],
         gridspots: [[1,2,3]],
         player_pos: 0,
-        players: []
+        players: [],
+        loading: true
       }
   }
 
@@ -95,11 +96,10 @@ class GameBox extends React.Component {
     channel.on("heartbeat", payload => {
         console.log("got heartbeat channel from server")
         this.setState({
-          grid: payload.gridlist,
           gridspots: payload.gridspots,
-          gru_pos: payload.gru_pos,
-          players: payload.players
-
+          gru: payload.gru,
+          players: payload.players,
+          loading: false
         });
 
       console.log(payload);
@@ -111,6 +111,12 @@ class GameBox extends React.Component {
   }
 
 	render(){
+
+      if(this.state.loading){
+        return (
+            <div className="loader">Loading...</div>
+        )
+      }
 
       let player_keys = Object.keys(this.state.players);
 
@@ -149,9 +155,16 @@ class GameBox extends React.Component {
     {this.state.gridspots.map((object, i) => {
 
       let colClass = "grid-square"
-      if( i == this.state.gru_pos) {
+
+      let has_gru = null;
+      if(this.state.gru && i == this.state.gru.pos) {
+        has_gru = (
+            <div> <h4>Gru: {this.state.gru.hp}</h4>
+            </div>
+        )
         colClass = "grid-square-gru-occupied"
       }
+
 
 
       if( this.state.players[player_id] &&
@@ -163,6 +176,7 @@ class GameBox extends React.Component {
 
               <Col className={colClass} xs={12} md={2} key={"inner"+i} >
                 <h3> {i} </h3>
+                {has_gru}
                 <div className="other-player-tile">
                   <h4>{ player_map[i].residents.toString()} </h4>
                 </div>
@@ -187,7 +201,8 @@ class GameBox extends React.Component {
 
 
 ReactDOM.render(
-  <div><h1>Grid basic</h1>
+  <div>
+    <h1>Grid basic</h1>
     <GameBox />
 
   </div>,
