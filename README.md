@@ -3,6 +3,8 @@
 Graft on codingtrain 33.2 agar sketch into a phoenix web app.
 Adds multiplayer.
 
+Heroku deploy: https://murmuring-plateau-90021.herokuapp.com/
+
 
 # Running Locally
 
@@ -44,6 +46,13 @@ mix hello.greeting
 https://hexdocs.pm/phoenix/heroku.html
 
 ```
+# set slug in config/prod.exs
+config :om, OmWeb.Endpoint,
+  load_from_system_env: true,
+  url: [scheme: "https",
+        host: "<heroku-slug>.herokuapp.com",
+        port: 443],
+
 heroku pg:reset DATABASE  #optional
 
 heroku run "POOL_SIZE=2 mix ecto.migrate"

@@ -51,14 +51,15 @@ defmodule Om.PeriodicallyBlob do
 
     food_spots = gamedata[:food_master][:spots]
 
-#    IO.puts inspect(length(food_spots))
 
-    if length(food_spots) < 100 do
+    # Make Food condition
+    if length(food_spots) < 200 do
 
-      # make 10 food each heartbeat
+
       ids_in_use = food_spots |> Enum.map( fn k -> k[:food_id] end)
-
-      num = Enum.take_random((1000..200000), 5)
+      
+      # make 10 food each heartbeat
+      num = Enum.take_random((1000..200000), 10)
       num = Enum.filter(num, fn x -> x not in ids_in_use end)
 
       new_food_spots = Enum.map(num, fn x ->

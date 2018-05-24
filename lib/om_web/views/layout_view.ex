@@ -3,7 +3,7 @@ defmodule OmWeb.LayoutView do
 
 
   def title do
-    "[][] OmWeb"
+    "[][] Om Agar"
   end
 
 
