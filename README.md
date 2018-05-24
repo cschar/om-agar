@@ -4,7 +4,7 @@ Graft on codingtrain 33.2 agar sketch into a phoenix web app.
 Adds multiplayer.
 
 
-# Getting up and Running
+# Running Locally
 
 ```
 mix deps.get
@@ -26,14 +26,7 @@ mix phx.server
 :observer.start
 ```
 
-##reset db
-```
-    [
-      "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
-      "ecto.reset": ["ecto.drop", "ecto.setup"],
-      "test": ["ecto.create --quiet", "ecto.migrate", "test"]
-   ]
-``` 
+
 ### stuff
 - heartbeat periodcally.ex fires via application.ex worker
 
@@ -47,9 +40,11 @@ mix hello.greeting
 
 
 
-### pushing to heroku
+### fresh push to heroku
 https://hexdocs.pm/phoenix/heroku.html
 
 ```
+heroku pg:reset DATABASE  #optional
+
 heroku run "POOL_SIZE=2 mix ecto.migrate"
 ```

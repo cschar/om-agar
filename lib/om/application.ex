@@ -15,14 +15,6 @@ defmodule Om.Application do
       supervisor(Om.Repo, []),
       # Start the endpoint when the application starts
       supervisor(OmWeb.Endpoint, []),
-
-      #Task.Supervisor.start_child(MyApp.TaskSupervisor, fn() -> Process.sleep 3000
-      {Task.Supervisor, name: MyApp.TaskSupervisor},
-      {MyApp.Supervisor, name: Toma},
-#      supervisor(Task.Supervisor, name: MyApp.TaskSupervisor),
-      supervisor(Om.InfoSys.Supervisor, [], name: :count),
-
-
       worker(Om.PeriodicallyBlob, [], name: :Pero),
       worker(Om.PeriodicallyGrid, [])
 
