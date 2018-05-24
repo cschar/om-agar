@@ -1,24 +1,41 @@
 
+<div id="bg">
+  
+      <img src='images/blob-eat-blob.gif'>
+    </div>
 
-<div class="jumbotron">
-  <h2>Welcome to Aga </h2>
+<div class="row ">
+
+<div class="col-sm-6">
+  <div class="jumbotron">
+    <h2>Welcome to Om Agar </h2>
 
 
-  <%= form_for @conn, page_path(@conn, :create), [as: :page], fn f -> %>
+    <%= form_for @conn, page_path(@conn, :create), [as: :page], fn f -> %>
 
-  <div class="form-group">
-    <%= text_input f, :username, placeholder: "Username", class: "form-control" %>
+    <div class="form-group">
+      <%= text_input f, :username, placeholder: "Username", class: "form-control" %>
+    </div>
+
+    <%= submit "Continue", class: "btn btn-primary" %>
+    <% end %>
+
   </div>
 
-  <%= submit "Continue", class: "btn btn-primary" %>
-  <% end %>
+</div>
+<div class="col-sm-6">
+  <div class='blob-image'>
+  
+  <img src='images/blob-eat-blob.gif' width='100%'>
+  </div>
+</div>
 
 </div>
 
 
-<p>  <%= @conn.assigns[:foo_email] %> </p>
 
-<h3>  <%= raw @conn.assigns[:foo_chatserver] %> </h3>
+<p>  <%#= @conn.assigns[:foo_email] %> </p>
+<h3>  <%#= raw @conn.assigns[:foo_chatserver] %> </h3>
 
 
 

@@ -24,7 +24,7 @@
             <li><h3><a href="/logout">logout </a></h3></li>
             <% end %>
 
-            
+          
           </ul>
         </nav>
         
@@ -33,16 +33,15 @@
       <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
       <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
 
-      <main role="main">
+    
+
         <p> total :  <%= @conn.assigns[:foo_total] %> </p>
         <%= if @conn.assigns[:current_user] do %>
           <p> current_user:  <%= inspect(@conn.assigns[:current_user].name) %> </p>
           <p> auth token:  <%= inspect(@conn.assigns[:user_token]) %> </p>
-
         <% end %>
 
         <%= render @view_module, @view_template, assigns %>
-      </main>
 
     </div> <!-- /container -->
 
