@@ -18,10 +18,8 @@
         <nav role="navigation">
           <ul class="nav nav-pills pull-right">
             <li><a href="/">Home </a></li>
-            <li><a href="/manage/videos">videos </a></li>
             <li><a href="/blob">blob </a></li>
-            <li><a href="/grid">grid </a></li>
-
+          
             <%= if @conn.assigns[:current_user] do %>
             <li><h3><a href="/logout">logout </a></h3></li>
             <% end %>
@@ -29,7 +27,7 @@
             
           </ul>
         </nav>
-        <span class="logo"></span>
+        
       </header>
 
       <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>

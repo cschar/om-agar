@@ -53,6 +53,6 @@ config :om, Om.Repo,
   adapter: Ecto.Adapters.Postgres,
   username: "postgres",
   password: "postgres",
-  database: "om_dev",
+  database: "om_agar_dev",
   hostname: "localhost",
   pool_size: 10

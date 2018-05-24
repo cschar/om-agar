@@ -2,15 +2,14 @@ defmodule Om.User do
   use Ecto.Schema
   import Ecto.Changeset
   alias Om.User
-
-  use Coherence.Schema                                    # Add this
+                                    # Add this
 
 
   schema "users" do
     field :name, :string
     field :email, :string
     has_many :videos, Om.Accounts.Video
-    coherence_schema()                                    # Add this
+                                      # Add this
 
     timestamps()
   end

@@ -30,11 +30,5 @@ try {
   console.log("no blob")
 }
 
-try {
-  //require("./grid_sketch.js");
-  require("./grid_basic.js");
-}catch(err){
-  console.log(err)
-}
 
 console.log("app.js loaded")

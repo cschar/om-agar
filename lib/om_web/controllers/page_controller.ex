@@ -26,9 +26,6 @@ defmodule OmWeb.PageController do
     render conn, "blob.html"
   end
 
-  def grid(conn, _params) do
-    render conn, "grid.html"
-  end
 
 
 #
