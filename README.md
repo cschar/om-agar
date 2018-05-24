@@ -1,6 +1,9 @@
-# Om
+# Om agar
 
-Graft on codingtrain 33.2 agar sketch
+Graft on codingtrain 33.2 agar sketch into a phoenix web app.
+Adds multiplayer.
+
+
 
 
 ##reset db

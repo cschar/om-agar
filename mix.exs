@@ -47,8 +47,7 @@ defmodule Om.Mixfile do
       {:gen_stage, "~> 0.12"},
       {:httpotion, "~> 3.1.0"},
       {:httpoison, "~> 1.0"},
-      {:floki, "~> 0.20.0"},
-      {:coherence, github: "smpallen99/coherence"}
+      {:floki, "~> 0.20.0"}
 
     ]
   end

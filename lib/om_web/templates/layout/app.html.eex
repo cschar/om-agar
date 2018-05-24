@@ -26,14 +26,7 @@
             <li><h3><a href="/logout">logout </a></h3></li>
             <% end %>
 
-            <p class="navbar-text">-----> Coherence || </p>
-
-            <%= if Coherence.current_user(@conn) do %>
-              <%= if @conn.assigns[:remembered] do %>
-                <li style="color: red;">!!</li>
-              <% end %>
-            <% end %>
-            <%= OmWeb.Coherence.ViewHelpers.coherence_links(@conn, :layout) %>
+            
           </ul>
         </nav>
         <span class="logo"></span>
