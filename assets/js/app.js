@@ -21,9 +21,6 @@ import "phoenix_html"
 import socket from "./socket"
 
 
-
-import socket_agar from "./socket_agar"
-
 try {
   require("./blob_sketch.js");
 }catch(err){

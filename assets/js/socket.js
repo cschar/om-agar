@@ -77,8 +77,12 @@ chatInput.addEventListener("keypress", event => {
 
 channel.on("new_msg", payload => {
   let messageItem = document.createElement("li");
+  // messageItem.className = "list-group-item"
   messageItem.innerText = `[${Date()}] ${payload.body}`
   messagesContainer.appendChild(messageItem)
+  if (messagesContainer.childElementCount > 6){
+    messagesContainer.removeChild(messagesContainer.firstChild);
+  }
 })
 
 

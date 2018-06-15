@@ -1,28 +1,20 @@
-<div id="messages"></div>
-<input id="chat-input" type="text"></input>
 
+<div class="row no-gutters">
+  <div class="col-xs-3 ">
+   
+    <div class="pl-2">
+      <h3> Chat </h3>
+      <ul id="messages" class="">
+       </ul>
 
-<div class="foo">
--------
-</div>
+       <input id="chat-input" type="text"></input>
+    </div>
+    
+  </div>
 
-<div class="row">
-
-  <div class="col-sm-6 column1" >
-    <div id="agar-score">  </div>
-    <div id="input-log">
-      <input id="agar-input" type="text"></input>
-      Mousepress(hold) to move
+  <div class="col-xs-6 no-gutters bg-secondary" style="width:600px">
+    <div id="sketchContainer">
     </div>
   </div>
 
-  <div class="col-sm-6 column2">
-    <div id="position-log">
-    test
-    </div>
-  </div>
-
-</div>
-
-<div id="sketchContainer" style="background-color:grey; margin-top:20px; padding:2px">
 </div>

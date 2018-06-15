@@ -12,21 +12,29 @@
   </head>
 
   <body>
-    <div class="container">
-
+    <div class="container-fluid">
       <header class="header">
-        <nav role="navigation">
-          <ul class="nav nav-pills pull-right">
-            <li><a href="/">Home </a></li>
-            <li><a href="/blob">blob </a></li>
-          
-            <%= if @conn.assigns[:current_user] do %>
-            <li><h3><a href="/logout">logout </a></h3></li>
-            <% end %>
 
-          
-          </ul>
-        </nav>
+      <nav class="navbar navbar-expand navbar-light bg-light">
+      <a class="navbar-brand" href="#">Om-agar</a>
+
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/blob">Blob</a>
+        </li>
+      </ul>
+
+      <ul class="navbar-nav mr-3">
+        <li class="nav-item">
+          <h3> <a href="/logout">logout </a> </h3>
+        </li>
+      </ul>
+  
+      </nav>
+
         
       </header>
 
@@ -35,8 +43,10 @@
 
     
 
-        <p> total :  <%= @conn.assigns[:foo_total] %> </p>
-        <%= if @conn.assigns[:current_user] do %>
+        
+        <%= if false do %>
+        <%#= if @conn.assigns[:current_user] do %>
+          <p> total :  <%= @conn.assigns[:foo_total] %> </p>
           <p> current_user:  <%= inspect(@conn.assigns[:current_user].name) %> </p>
           <p> auth token:  <%= inspect(@conn.assigns[:user_token]) %> </p>
         <% end %>

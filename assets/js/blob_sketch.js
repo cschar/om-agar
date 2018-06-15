@@ -14,7 +14,7 @@ var blob_npc = null;
 var foods = null;
 var init_spawned_foods = false;
 
-let pos_log = document.getElementById("position-log")
+
 var player_id = null;
 window.player_id = player_id;
 
@@ -52,9 +52,6 @@ channel.on("heartbeat", payload => {
   }
 )
 
-function updateGame(){
-
-}
 
 
 var blobs_eaten = []
@@ -122,7 +119,7 @@ p.setup = function() {
 }
 
 p.draw = function() {
-  p.background(100);
+  p.background(120);
   p.textSize(20);
   p.translate(p.width/2, p.height/2);
   var newzoom = 64 / blob.r;
@@ -187,7 +184,7 @@ p.draw = function() {
         //let food_spot_keys = Object.keys(food_spots)
 
 
-        //pos_log.innerHTML = `<h1> ${blob.r} </h1>`;
+        
         blobs = []
         food_spots.map( (spot) => {
           blobs.push(new Blob3(spot.x, spot.y, 16, spot.food_id));
