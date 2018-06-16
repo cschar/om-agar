@@ -116,12 +116,7 @@ p.setup = function() {
   blob_npc = new Blob3(30, 0, 48);
   blob_npc.color = 180
 
-  //for (var i = 0; i < 200; i++) {
-  //  var x = p.random(-p.width, p.width);
-  //  var y = p.random(-p.height,p.height);
-  //  blobs[i] = new Blob3(x, y, 16);
-  //}
-}
+  }
 
 p.draw = function() {
   p.background(120);
@@ -163,8 +158,6 @@ p.draw = function() {
 
   }
 
-  p.fill(160,255,160)
-  p.text(`blob[${player_id}]: ${blob.r}`, blob.pos.x+blob.r, blob.pos.y)
 
     if(p.frameCount % 60 == 0){
     //send position and food eaten info every 1 sec
@@ -198,23 +191,13 @@ p.draw = function() {
   }
 
 
-
-
-
-  blob.show();
-  blob.update();
-
-  blob_npc.show();
-
   //other players
   if(keys){
 
     keys = keys.filter( (x) => (x !== "greenie"
                              && x !== "food_master"
                              && x !== player_id))
-    // keys = keys.filter( (x) => (x !== "food_master"))
-    // keys = keys.filter( (x) => (x !== player_id))
-    //
+
     
     for( let player_id of keys){
        p.fill(130, 130, 255);
@@ -239,7 +222,8 @@ p.draw = function() {
             
             
             
-            p.fill('blue')
+            p.fill(160,255,230)
+            // p.fill('blue')
             p.ellipse(pos.x, pos.y, pos.r*2, pos.r*2);
             p.text(`blobza[${player_id}]:  = ${pos.r}`, pos.x + pos.r, pos.y)
             
@@ -273,27 +257,18 @@ p.draw = function() {
           
         }
       }
-
-      // if(other_vel[player_id]){
-        
-      //   // var newvel = new p5.Vector(p.mouseX-p.width/2, p.mouseY-p.height/2);
-      //   // newvel.setMag(3);
-      //   // this.vel.lerp(newvel, 0.2);
-      //   // this.pos.add(this.vel);
-
-      //   p.fill('red')
-      //   p.ellipse(pos.x, pos.y, pos.r*2, pos.r*2);
-      //   p.text(`blob[${player_id}]:  = ${pos.r}`, pos.x + pos.r, pos.y)
-      // }else{
-      //   p.fill('blue')
-      //   p.ellipse(pos.x, pos.y, pos.r*2, pos.r*2);
-      //   p.text(`blobza[${player_id}]:  = ${pos.r}`, pos.x + pos.r, pos.y)
-      // }
-      
     }
 
     other_last_pos = gamedata;
   }
+
+
+  p.fill(160,255,160)
+  p.text(`blob[${player_id}]: ${blob.r}`, blob.pos.x+blob.r, blob.pos.y)
+  blob.show();
+  blob.update();
+  blob_npc.show();
+
 
 } //end draw
 
