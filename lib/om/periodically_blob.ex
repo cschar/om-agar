@@ -87,6 +87,6 @@ defmodule Om.PeriodicallyBlob do
   defp schedule_work() do
 #    Process.send_after(self(), :work, 2 * 60 * 60 * 1000) # In 2 hours
 #     Process.send_after(self(), :work, 2 * 1000) # 2 second
-      Process.send_after(self(), :work, 1 * 1000) # 2 second
+      Process.send_after(self(), :work, 1 * 1000) 
   end
 end

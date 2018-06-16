@@ -21,6 +21,9 @@ window.player_id = player_id;
 var gamedata = null;
 window.gd = gamedata;
 
+var other_last_pos = null;
+var other_vel = {};
+
 import {Socket} from "phoenix"
 
 let socket_agar = new Socket("/socket_agar", {params: {token: window.userToken}})
@@ -37,9 +40,10 @@ channel.join()
 
   
 channel.on("heartbeat", payload => {
-    console.log("got heartbeat channel from server")
-    console.log(payload);
+    // console.log("got heartbeat channel from server")
+    // console.log(payload);
     gamedata = payload;
+    other_vel = {}
     window.gd = payload;
 
     window.foods = foods = payload.foods;
@@ -51,7 +55,6 @@ channel.on("heartbeat", payload => {
     }
   }
 )
-
 
 
 var blobs_eaten = []
@@ -68,7 +71,7 @@ var s = function(p) {
   }
 
   function Blob3(x, y, r, id=null) {
-    console.log("building blob")
+    
     this.id = id;
     this.color = 255;
     this.pos = new p5.Vector(x, y);
@@ -78,10 +81,12 @@ var s = function(p) {
     this.update = function() {
       
       if(p.mouseIsPressed){
-      var newvel = new p5.Vector(p.mouseX-p.width/2, p.mouseY-p.height/2);
-      newvel.setMag(3);
-      this.vel.lerp(newvel, 0.2);
-      this.pos.add(this.vel);
+        var newvel = new p5.Vector(p.mouseX-p.width/2, p.mouseY-p.height/2);
+        newvel.setMag(3);
+        this.vel.lerp(newvel, 0.2);
+        this.pos.add(this.vel);
+
+        drawArrow(this.pos, newvel, 'red');
       }
       
     }
@@ -131,9 +136,6 @@ p.draw = function() {
   if(gamedata) {
     keys = Object.keys(gamedata);
   }
-
-
-
 
 
 
@@ -207,21 +209,112 @@ p.draw = function() {
   //other players
   if(keys){
 
-    keys = keys.filter( (x) => (x !== "greenie"))
-    keys = keys.filter( (x) => (x !== "food_master"))
-    keys = keys.filter( (x) => (x !== player_id))
+    keys = keys.filter( (x) => (x !== "greenie"
+                             && x !== "food_master"
+                             && x !== player_id))
+    // keys = keys.filter( (x) => (x !== "food_master"))
+    // keys = keys.filter( (x) => (x !== player_id))
     //
-    for( let k of keys){
+    
+    for( let player_id of keys){
        p.fill(130, 130, 255);
-      let pos = gamedata[k]
+      let pos = gamedata[player_id]
       //let r = 30
-      p.ellipse(pos.x, pos.y, pos.r*2, pos.r*2);
-      p.text(`blob[${k}]:  = ${pos.r}`, pos.x + pos.r, pos.y)
+
+      if(other_last_pos){ //initialized
+        
+        let last_pos = other_last_pos[player_id];
+        if (last_pos){ //if player didnt leave
+          
+          //new location , set velocity
+          if (last_pos.x !== pos.x){ 
+            
+            var v1 = p.createVector(pos.x - last_pos.x, pos.y - last_pos.y);
+            // v1.setMag(10);
+            v1.mult(3);
+            other_vel[player_id] = {destination: v1,
+                                    ticks: 0,
+                                    current: p.createVector(pos.x, pos.y)};
+
+            
+            
+            
+            p.fill('blue')
+            p.ellipse(pos.x, pos.y, pos.r*2, pos.r*2);
+            p.text(`blobza[${player_id}]:  = ${pos.r}`, pos.x + pos.r, pos.y)
+            
+            //same location
+            //how do we know if its stale, or a new payload with same info
+          }else if(last_pos.x == pos.x){ 
+            
+            //stale, interpolate
+            if(other_vel[player_id]){
+              var dest = other_vel[player_id].destination.copy()
+              dest.mult(0.001 * other_vel[player_id].ticks);
+              other_vel[player_id].ticks += 1;
+  
+              // p.fill('red')
+              p.fill(160,255,230)
+              var new_pos = p.createVector(pos.x + dest.x, pos.y + dest.y);
+              p.ellipse(new_pos.x, new_pos.y, pos.r*2, pos.r*2);
+              p.text(`blob[${player_id}]:  = ${pos.r}`, new_pos.x + pos.r, new_pos.y)
+              drawArrow(pos, dest, 'blue',15)
+              // drawArrow(pos, other_vel[player_id].destination, 'green')
+                        
+            }else{
+              //new, but same position
+              p.fill(160,255,230)
+              // p.noFill()
+              p.ellipse(pos.x, pos.y, pos.r*2, pos.r*2);
+              p.text(`blob[${player_id}]:  = ${pos.r}`, pos.x + pos.r, pos.y)
+            }
+          } 
+
+          
+        }
+      }
+
+      // if(other_vel[player_id]){
+        
+      //   // var newvel = new p5.Vector(p.mouseX-p.width/2, p.mouseY-p.height/2);
+      //   // newvel.setMag(3);
+      //   // this.vel.lerp(newvel, 0.2);
+      //   // this.pos.add(this.vel);
+
+      //   p.fill('red')
+      //   p.ellipse(pos.x, pos.y, pos.r*2, pos.r*2);
+      //   p.text(`blob[${player_id}]:  = ${pos.r}`, pos.x + pos.r, pos.y)
+      // }else{
+      //   p.fill('blue')
+      //   p.ellipse(pos.x, pos.y, pos.r*2, pos.r*2);
+      //   p.text(`blobza[${player_id}]:  = ${pos.r}`, pos.x + pos.r, pos.y)
+      // }
+      
     }
+
+    other_last_pos = gamedata;
   }
 
+} //end draw
+
+function drawArrow(base, vec, myColor, strokeW=3) {
+  p.push();
+  p.stroke(myColor);
+  p.strokeWeight(strokeW);
+  p.fill(myColor);
+  p.translate(base.x, base.y);
+  p.line(0, 0, vec.x, vec.y);
+  p.rotate(vec.heading());
+  var arrowSize = 7;
+  p.translate(vec.mag() - arrowSize, 0);
+  p.triangle(0, arrowSize / 2, 0, -arrowSize / 2, arrowSize, 0);
+  p.pop();
 }
-}
+
+
+} //end sketch definition
+
+
 
 var myp5 = new p5(s);
 
